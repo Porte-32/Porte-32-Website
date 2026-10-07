@@ -11,7 +11,17 @@ The site exists to explain that idea, show upcoming and past events, and get the
 - **One step at a time.** The user sets the next step. Finish it, report back, wait. Don't run ahead.
 - **The user owns the decisions.** Design, content, structure and scope are theirs. If something isn't clear, ask rather than guess.
 - **Build only what was asked.** No extra pages, features or "while I was here" refactors.
-- **Design work goes through the `frontend-design` skill**, and only once a direction has been agreed. Until then, keep any UI plain and unstyled.
+- **Design work goes through the `frontend-design` skill**, working inside the design system below. Don't invent a new direction.
+
+## Design system
+
+`design/DESIGN.md` is the source of truth for visuals. Read it before any UI work.
+
+- `design/tokens.css` holds every colour, type, spacing and motion token. Use the semantic tokens. No hard-coded hex values or one-off sizes.
+- `design/design-system.html` is the full visual reference, with reference components. Open it in a browser.
+- `src/components/` holds the design system components in TypeScript. They are exact ports of the reference; don't change how they look.
+- Logos are in `Logos/`.
+- If something isn't covered, ask. Don't extend the system yourself.
 
 ## Code principles
 
@@ -42,4 +52,6 @@ Two files in `.claude/` carry context between sessions. Keep both short. They ar
 
 ## Commands
 
-Not set yet. These get filled in once the framework is chosen.
+- `npm run typecheck`: TypeScript check
+
+Dev server, build and lint commands get added once the framework is chosen.

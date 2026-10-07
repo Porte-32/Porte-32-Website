@@ -6,7 +6,12 @@ Porte 32 is a curated event series. Each event puts a small group of curious peo
 
 ## Getting started
 
-The project hasn't been scaffolded yet. Install and run instructions will go here.
+```
+npm install
+npm run typecheck
+```
+
+The framework hasn't been chosen yet. Dev and build commands will go here.
 
 ## Layout
 
@@ -15,6 +20,8 @@ Website/
 ├── CLAUDE.md      how Claude Code works on this project
 ├── README.md
 ├── .claude/       session notes for Claude Code
+├── design/        design system: rules, tokens, visual reference
+├── src/components/  design system components (TypeScript)
 └── Logos/         brand logo files
 ```
 
