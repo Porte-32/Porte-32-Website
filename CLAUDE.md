@@ -52,6 +52,10 @@ Two files in `.claude/` carry context between sessions. Keep both short. They ar
 
 ## Commands
 
+Next.js (App Router), deployed on Vercel. Pages live in `src/app/`.
+
+- `npm run dev`: local dev server at http://localhost:3000
+- `npm run build`: production build (also type-checks)
 - `npm run typecheck`: TypeScript check
 
-Dev server, build and lint commands get added once the framework is chosen.
+Fonts load through `next/font` in `src/app/layout.tsx`. Static files (logos) go in `public/`. Components that use React hooks need `'use client'` at the top.

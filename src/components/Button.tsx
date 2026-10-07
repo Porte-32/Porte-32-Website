@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import type { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 

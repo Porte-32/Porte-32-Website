@@ -1,0 +1,14 @@
+@import '../../design/tokens.css';
+
+/* Point the font tokens at the files loaded by next/font (see layout.tsx). */
+:root {
+  --font-display: var(--font-bodoni), "Didot", "Bodoni 72", Georgia, serif;
+  --font-body: var(--font-hanken), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:focus-visible {
+  outline: 1.5px solid var(--focus-ring);
+  outline-offset: 3px;
+}

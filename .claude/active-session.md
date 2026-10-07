@@ -1,15 +1,19 @@
 # Active session
 
-**Task:** Add the design system to the project.
+**Task:** Coming-soon page to deploy on Vercel and test the domain.
 
 **Done so far:**
-- Added `design/` (`design-system.html`, `DESIGN.md`, `tokens.css`).
-- Extracted 4 logo PNGs from the design system into `Logos/`.
-- Pointed `CLAUDE.md` and `README.md` at the design system.
-- Ported all 13 reference components to TypeScript in `src/components/` with identical styles.
-- Added minimal `package.json` (React + TypeScript), `tsconfig.json` (strict), `.gitignore`. Typecheck passes.
+- Chose Next.js 15 (App Router) for Vercel. Added `next.config.ts` and dev/build/start scripts, and updated `tsconfig.json` and `.gitignore`.
+- `src/app/`: layout (Bodoni Moda + Hanken Grotesk via next/font), globals.css (imports tokens), coming-soon page, favicon from the monogram.
+- `public/logo-full-ink.png`.
+- Added `'use client'` to the components that use hooks (Button, TextLink, Input, Checkbox, EventCard). No visual change.
+- Fixed: the opsz 11 rule in tokens.css needs `!important` (the `font` shorthand resets it), matching the original design file.
+- Build and typecheck pass. Checked desktop and 390px mobile via screenshots.
 
 **Decisions:**
-- `design/DESIGN.md` is the visual source of truth.
+- Next.js on Vercel.
+- Coming-soon copy: "Opening soon" / "Behind every door, a conversation." (from the design system tagline).
 
 **Open / blocked:**
+- Not committed or pushed yet.
+- Vercel project and domain to be connected by the user.

@@ -99,7 +99,7 @@
 }
 
 /* Base */
-* { font-variation-settings: "opsz" 11; }
+* { font-variation-settings: "opsz" 11 !important; }
 
 html, body {
   margin: 0;

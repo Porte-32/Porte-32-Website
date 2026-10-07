@@ -6,12 +6,16 @@ Porte 32 is a curated event series. Each event puts a small group of curious peo
 
 ## Getting started
 
+Built with Next.js and TypeScript, deployed on Vercel.
+
 ```
 npm install
+npm run dev        # http://localhost:3000
+npm run build
 npm run typecheck
 ```
 
-The framework hasn't been chosen yet. Dev and build commands will go here.
+Right now the site is a single coming-soon page (`src/app/page.tsx`).
 
 ## Layout
 
@@ -21,7 +25,9 @@ Website/
 ├── README.md
 ├── .claude/       session notes for Claude Code
 ├── design/        design system: rules, tokens, visual reference
+├── src/app/       pages (Next.js App Router)
 ├── src/components/  design system components (TypeScript)
+├── public/        static files served as-is
 └── Logos/         brand logo files
 ```
 
