@@ -148,6 +148,14 @@
   to { opacity: 1; transform: none; }
 }
 
+/* Phones: sized so "Behind every door," holds one line. */
+@media (max-width: 640px) {
+  .title {
+    font-size: clamp(32px, 9.4vw, 44px);
+    line-height: 1.08;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .word,
   .detail {

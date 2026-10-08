@@ -11,10 +11,31 @@ type SiteNavProps = {
 /**
  * Floating pill nav with a frosted-glass ground (Hero v4). Slims down while scrolling down; wakes on scroll up, hover or focus.
  * A link with parts (About) shows them in a small panel beneath it on hover or keyboard focus.
+ * On phones the links give way to a menu button that opens a full-screen menu.
  */
 export function SiteNav({ links }: SiteNavProps) {
   const [active, setActive] = useState<string | null>(null);
   const [slim, setSlim] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  // While the phone menu is open: the page stays still and Escape closes it.
+  useEffect(() => {
+    if (!open) return;
+    const root = document.documentElement;
+    const overflow = root.style.overflow;
+    root.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      root.style.overflow = overflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  const go = (label: string) => {
+    setActive(label);
+    setOpen(false);
+  };
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -38,8 +59,8 @@ export function SiteNav({ links }: SiteNavProps) {
 
   return (
     <header className={styles.header}>
-      <nav className={`${styles.nav} ${slim ? styles.slim : ''}`}>
-        <a href="#" className={styles.home}>
+      <nav className={`${styles.nav} ${slim && !open ? styles.slim : ''}`}>
+        <a href="#" className={styles.home} onClick={() => setOpen(false)}>
           <img src="/logo-full-ink.png" alt="Porte32" className={styles.logo} />
         </a>
         <div className={styles.links}>
@@ -75,7 +96,44 @@ export function SiteNav({ links }: SiteNavProps) {
             );
           })}
         </div>
+
+        <button
+          type="button"
+          className={`${styles.toggle} ${open ? styles.toggleOpen : ''}`}
+          aria-expanded={open}
+          aria-controls="site-menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          onClick={() => setOpen(o => !o)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </nav>
+
+      {/* Phones: the full-screen menu. */}
+      <div id="site-menu" className={`${styles.menu} ${open ? styles.menuOpen : ''}`} aria-hidden={!open}>
+        <ul className={styles.menuList}>
+          {links.map((link, i) => (
+            <li key={link.label} className={styles.menuItem} style={{ transitionDelay: open ? `${120 + i * 60}ms` : '0ms' }}>
+              <a href={link.href} className={styles.menuLink} tabIndex={open ? 0 : -1} onClick={() => go(link.label)}>
+                {link.label}
+              </a>
+              {link.parts && (
+                <ul className={styles.menuParts}>
+                  {link.parts.map(part => (
+                    <li key={part.href}>
+                      <a href={part.href} className={styles.menuPart} tabIndex={open ? 0 : -1} onClick={() => go(link.label)}>
+                        {part.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 }

@@ -52,3 +52,11 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* Phones: the statement a touch smaller, with more air between its lines. */
+@media (max-width: 640px) {
+  .statement {
+    font-size: clamp(26px, 7.4vw, 34px);
+    line-height: 1.24;
+  }
+}
