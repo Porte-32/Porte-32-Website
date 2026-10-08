@@ -1,30 +1,34 @@
-/**
- * About copy. Words wrapped in **double asterisks** are set in spaced capitals.
- */
+export type AboutLine = { key: string; detail: string };
+
+/** About copy. Each part leads into the next: one world → one speaker → a small group → who that group is → what we care about. */
 export const about = {
   statement:
     'Porte 32 is a series of events where curious people sit down with someone who works in a world they’d like to understand.',
 
   how: {
     title: 'How it works',
-    /** Read in three steps as the dot field narrows: one world, one speaker, a small group. */
+    /** Set as a descending stair: each line starts further in, so the room narrows from a world to a group. */
     steps: [
-      'Each event explores **one world**, a single industry, profession or topic.',
-      'It is led by **one speaker** who knows their field better than anyone,',
-      'for **a small group**, so everyone can ask questions and take part.',
-    ],
+      { key: 'One world', detail: 'Each event explores a single industry, profession or topic.' },
+      { key: 'One speaker', detail: 'Led by someone who knows their field better than anyone.' },
+      { key: 'A small group', detail: 'Small enough that everyone can ask questions and take part.' },
+    ] satisfies AboutLine[],
   },
 
   who: {
-    title: 'Who it’s for',
-    audience: 'For students, young professionals, creatives, founders and anyone curious.',
-    note: 'No particular background needed.',
+    /** Fixed start of the line; the audiences complete it one at a time as you scroll. The last is the emphasis. */
+    lead: 'Open to',
+    audiences: ['students', 'young professionals', 'creatives', 'founders', 'anyone curious'],
   },
 
   values: {
     title: 'What we care about',
-    text: 'We care about **access** to people and places that can feel out of reach, **authenticity** in how things really work, **connection** through real conversations with the speaker and each other, and **discovery**: leaving with something new.',
+    /** In the order of an evening: the talk, the honest answers, the people, what you leave with. */
+    items: [
+      { key: 'Craft', detail: 'The real work, up close.' },
+      { key: 'Honesty', detail: 'How it actually works.' },
+      { key: 'Community', detail: 'People worth knowing.' },
+      { key: 'Discovery', detail: 'Something you didn’t expect.' },
+    ] satisfies AboutLine[],
   },
-
-  cta: { label: 'See upcoming events', href: '#events' },
 };

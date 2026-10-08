@@ -1,33 +1,27 @@
-/* A narrow, centred column with a lot of air around it. */
+/* Left-anchored story on the same 1320px measure as the hero. Each part gets a full screen with its content
+   centred in it, so the parts are evenly spaced and each sits in the middle of the view as you reach it. */
 .about {
   position: relative;
   z-index: 1;
+  padding: 0 clamp(20px, 5vw, 96px);
+}
+
+.screen {
+  min-height: 100vh;
+  min-height: 100svh;
+  align-content: center;
+}
+
+.statementScreen {
   display: grid;
-  justify-items: center;
-  text-align: center;
-  padding: clamp(144px, 26vh, 260px) clamp(20px, 5vw, 96px) clamp(144px, 24vh, 240px);
-  --pause: clamp(120px, 22vh, 220px);
 }
 
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-.opening {
-  justify-self: stretch;
-  width: 100%;
+.inner {
   max-width: 1320px;
   margin: 0 auto;
-  text-align: left;
 }
 
-/* The statement keeps its earlier treatment: large, left-aligned, inking in word by word as you scroll. */
+/* The statement keeps its treatment: large, inking in word by word as you scroll. */
 .statement {
   margin: 0;
   max-width: 23ch;
@@ -37,67 +31,24 @@
   text-wrap: balance;
 }
 
-.how {
-  justify-self: stretch;
-  margin-top: clamp(40px, 8vh, 96px);
-}
-
-.block {
-  margin-top: var(--pause);
+/* Each part shares the 12 columns; details and notes always land in the last three. */
+.part {
   display: grid;
-  justify-items: center;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--space-5);
 }
 
-/* Running text in the display serif, small and generous, like a printed card. */
-.prose {
-  margin: 0;
-  max-width: 30ch;
-  font: 400 clamp(21px, 1.75vw, 26px) / 1.6 var(--font-display);
-  color: var(--fg-2);
-  text-wrap: balance;
+.part > * {
+  grid-column: 1 / -1;
 }
 
-/* Key words: spaced capitals in ink, the brand's label voice inside a sentence. */
-.caps {
-  font-size: 0.7em;
-  font-weight: 500;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--fg-1);
-  /* Trailing tracking would push the next space wider; pull it back. */
-  margin-right: -0.26em;
-  padding-left: 0.1em;
-}
-
-/* The audience gets the one large moment. */
-.audience {
-  margin: 0;
-  max-width: 17ch;
-  font: 500 clamp(36px, 4.2vw, 62px) / 1.08 var(--font-display);
-  letter-spacing: -0.02em;
-  color: var(--fg-1);
-  text-wrap: balance;
-}
-
-.note {
-  margin: clamp(24px, 4vh, 36px) 0 0;
-  font: 400 17px / var(--leading-body) var(--font-body);
-  color: var(--fg-3);
-}
-
-.cta {
-  margin-top: var(--pause);
-  font: 500 var(--text-label) / 1 var(--font-body);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--fg-1);
-  padding: 6px 0;
-  border-bottom: 1px solid var(--fg-1);
-  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-
-.cta:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+/* Kept for screen readers where the part speaks for itself. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }

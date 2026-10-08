@@ -1,8 +1,18 @@
-export type NavLink = { label: string; href: string };
+/** A part of a page, shown under its nav link on hover. */
+export type NavPart = { title: string; line: string; href: string };
+export type NavLink = { label: string; href: string; parts?: NavPart[] };
 export type Pillar = { title: string; detail: string };
 
 export const navLinks: NavLink[] = [
-  { label: 'About', href: '#about' },
+  {
+    label: 'About',
+    href: '#about',
+    parts: [
+      { title: 'What we do', line: 'One world, one speaker, a small group.', href: '#what-we-do' },
+      { title: 'Who it’s for', line: 'Open to anyone curious.', href: '#who-its-for' },
+      { title: 'What we stand for', line: 'Craft, honesty, community and discovery.', href: '#what-we-stand-for' },
+    ],
+  },
   { label: 'Events', href: '#events' },
   { label: 'Speakers', href: '#speakers' },
   { label: 'Founders', href: '#founders' },

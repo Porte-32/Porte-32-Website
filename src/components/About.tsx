@@ -1,44 +1,37 @@
 import type { about as aboutContent } from '@/content/about';
-import { HowStage } from './HowStage';
+import { Audience } from './Audience';
 import { InkText } from './InkText';
+import { Stair } from './Stair';
+import { Values } from './Values';
 import styles from './About.module.css';
 
 type AboutProps = {
   content: typeof aboutContent;
 };
 
-/** Renders copy where **marked** words are set in spaced capitals. */
-function Rich({ text }: { text: string }) {
-  return text.split('**').map((part, i) =>
-    i % 2 ? <span key={i} className={styles.caps}>{part}</span> : part,
-  );
-}
-
-/** Homepage About section: a short centred passage, set like a printed invitation. */
+/**
+ * Homepage About section, read as one story down a left-anchored 12-column grid:
+ * the statement, how an event narrows from a world to a small group, who that group is, and what we care about.
+ * Short notes and details share the last three columns throughout.
+ */
 export function About({ content }: AboutProps) {
-  const { how, who, values, cta } = content;
+  const { how, who, values } = content;
   return (
     <section id="about" className={styles.about} aria-label="About Porte 32">
-      <div className={styles.opening}>
-        <InkText text={content.statement} className={styles.statement} />
-      </div>
+      <div className={styles.inner}>
+        <div className={`${styles.screen} ${styles.statementScreen}`}>
+          <InkText text={content.statement} className={styles.statement} />
+        </div>
 
-      <div className={styles.how}>
-        <HowStage title={how.title} steps={how.steps} />
-      </div>
+        <div id="what-we-do" className={`${styles.part} ${styles.screen}`}>
+          <h3 className={styles.srOnly}>{how.title}</h3>
+          <Stair lines={how.steps} />
+        </div>
 
-      <div className={styles.block}>
-        <h3 className={styles.srOnly}>{who.title}</h3>
-        <p className={styles.audience}>{who.audience}</p>
-        <p className={styles.note}>{who.note}</p>
-      </div>
+        <Audience id="who-its-for" lead={who.lead} audiences={who.audiences} />
 
-      <div className={styles.block}>
-        <h3 className={styles.srOnly}>{values.title}</h3>
-        <p className={styles.prose}><Rich text={values.text} /></p>
+        <Values id="what-we-stand-for" title={values.title} items={values.items} />
       </div>
-
-      <a href={cta.href} className={styles.cta}>{cta.label}</a>
     </section>
   );
 }

@@ -25,9 +25,9 @@ export function InkText({ text, className = '' }: InkTextProps) {
       if (!el) return;
       const { top, height } = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      // Starts inking when the paragraph's top reaches 85% of the screen, done by the time its bottom reaches 55%.
+      // Starts inking when the paragraph's top reaches 85% of the screen, done by the time its bottom reaches 72%.
       const start = vh * 0.85;
-      const end = vh * 0.55 - height;
+      const end = vh * 0.72 - height;
       const p = Math.min(1, Math.max(0, (start - top) / (start - end)));
       setInked(Math.round(p * words.length));
     };

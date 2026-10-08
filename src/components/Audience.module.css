@@ -1,0 +1,122 @@
+/* Tall runway; the stage stays pinned while the audiences pass through the end of one line. */
+.wrap {
+  position: relative;
+  height: 320vh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--space-5);
+  align-content: center;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* One sentence: the fixed start in a softer ink, the changing end in full ink. */
+.line {
+  grid-column: 1 / 10;
+  margin: 0;
+  font: 500 clamp(40px, 5vw, 76px) / 1.08 var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+}
+
+.lead {
+  color: var(--fg-3);
+}
+
+/* Every audience shares one cell, so the line never shifts as they change. */
+.slot {
+  display: inline-grid;
+  vertical-align: bottom;
+}
+
+.word {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+}
+
+.past {
+  transform: translateY(-12px);
+}
+
+.on {
+  opacity: 1;
+  transform: none;
+}
+
+.emphasis {
+  color: var(--accent);
+}
+
+/* Grows with the scroll through all the audiences, like the stair's rules. */
+.rule {
+  grid-column: 1 / 10;
+  height: var(--hairline);
+  margin-top: var(--space-6);
+  background: var(--ornament);
+  transform-origin: left center;
+  transform: scaleX(var(--progress, 0));
+}
+
+/* Reduced motion: no pinning; the line reads in full. */
+.still {
+  height: auto;
+}
+
+.still .stage {
+  position: static;
+  height: auto;
+}
+
+.still .slot,
+.still .rule {
+  display: none;
+}
+
+.still .srOnly {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Phones: the changing end drops under "Open to". */
+@media (max-width: 860px) {
+  .line,
+  .rule {
+    grid-column: 1 / -1;
+  }
+
+  .line {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+
+  .slot {
+    display: grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    transition: none;
+  }
+}

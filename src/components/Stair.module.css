@@ -1,0 +1,107 @@
+/* Each row shares the page's 12 columns. The key phrase steps two columns further in per row;
+   the detail sits level with its brass rule in the last three.
+   The rules shorten row by row: the room narrows from a world to a group. */
+.stair {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--space-5);
+}
+
+.lead,
+.detail {
+  padding-block: clamp(36px, 6.5vh, 72px);
+}
+
+.lead {
+  grid-column: 1 / 10;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.row:nth-child(2) .lead { grid-column: 3 / 10; }
+.row:nth-child(3) .lead { grid-column: 5 / 10; }
+
+.key {
+  flex-shrink: 0;
+  font: 500 clamp(32px, 3.8vw, 56px) / 1.05 var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+}
+
+/* Its length follows the scroll (--draw, 0 to 1, set by Stair.tsx). */
+.rule {
+  flex: 1;
+  height: var(--hairline);
+  margin-left: clamp(16px, 2vw, 28px);
+  background: var(--ornament);
+  transform-origin: left center;
+}
+
+.live .rule {
+  transform: scaleX(var(--draw, 0));
+}
+
+.detail {
+  grid-column: 10 / -1;
+  display: flex;
+  align-items: center;
+  font: 400 var(--text-body) / var(--leading-body) var(--font-body);
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+.detail span {
+  max-width: 30ch;
+}
+
+/* The phrase is there while its rule is drawn; the detail once the rule has reached it. Both leave as it retracts. */
+.key,
+.detail span {
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+}
+
+.live .row:not(.keyOn) .key {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.live .row:not(.detailOn) .detail span {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+/* Phones: phrase and rule on one line, detail beneath; the indent still steps in. */
+@media (max-width: 860px) {
+  .row {
+    display: block;
+    padding-block: var(--space-7);
+    padding-left: calc(var(--step) * 9vw);
+  }
+
+  .lead,
+  .detail {
+    padding-block: 0;
+  }
+
+  .key {
+    font-size: clamp(30px, 8.6vw, 42px);
+  }
+
+  .detail {
+    margin-top: var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key,
+  .detail span {
+    transition: none;
+  }
+}

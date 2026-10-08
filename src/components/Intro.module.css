@@ -1,0 +1,41 @@
+/* Covers the page from the first paint, so the site never flashes before the intro. */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg-alt);
+  /* Fail-safe: if script never runs, step aside after a few seconds. */
+  animation: failsafe 0s linear 6s forwards;
+}
+
+/* Once script is running, the fail-safe is no longer needed. */
+.ready {
+  animation: none;
+}
+
+.stage {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The door frame, drawn as one line at the logo's own weight; and the ink of each mark. */
+.line {
+  fill: none;
+  stroke: var(--fg-1);
+  stroke-linejoin: miter;
+}
+
+.ink {
+  fill: var(--fg-1);
+}
+
+@keyframes failsafe {
+  to { visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+}

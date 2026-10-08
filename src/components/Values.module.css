@@ -1,0 +1,181 @@
+/* The evening as a line: each value's word above the line and its sentence below.
+   --draw (0 to 1) is set by Values.tsx from the scroll; .live is added once script runs, so without it everything shows. */
+/* A full screen with the timeline centred in it, like the other parts. */
+.values {
+  display: grid;
+  align-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* One row of values with equal gaps between them: each takes only the width it needs. Every word is one line at the
+   same size, so the marks all sit at the same height, where the track and line run. */
+.list {
+  --gap: var(--space-6); /* word to line, and line to sentence */
+  --mark: 5px;
+  --key-size: clamp(32px, 3.4vw, 52px);
+  --line-y: calc(var(--key-size) + var(--gap) + (var(--mark) - var(--hairline)) / 2);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The track: a faint full-width hairline that is always there; the brass draws along it. */
+.list::before,
+.line {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--line-y);
+  height: var(--hairline);
+}
+
+.list::before {
+  background: var(--line);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.key {
+  padding-bottom: var(--gap);
+  font: 500 var(--key-size) / 1 var(--font-display);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--fg-1);
+}
+
+/* A small brass square on the line, flush with the start of the word. */
+.mark {
+  position: relative;
+  z-index: 1;
+  width: var(--mark);
+  height: var(--mark);
+  background: var(--ornament);
+}
+
+/* Wraps to the width of its word, so only the words set the spacing between values. */
+.detail {
+  width: 0;
+  min-width: 100%;
+  padding-top: var(--gap);
+  font: 400 var(--text-body) / var(--leading-body) var(--font-body);
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+/* The brass line, drawn along the track to --draw. */
+.line {
+  margin: 0;
+  background: var(--ornament);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.live .line {
+  transform: scaleX(var(--draw, 0));
+}
+
+/* A value arrives once the line reaches it: the mark appears, the word settles, then the sentence. */
+.key,
+.mark,
+.detail {
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.live .item:not(.on) .key {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.live .item:not(.on) .mark {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.live .item:not(.on) .detail {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.on .key,
+.on .detail {
+  transition-duration: var(--dur-slow);
+}
+
+.on .detail {
+  transition-delay: 200ms;
+}
+
+/* Phones: the track and line run down the left; each value sits beside its mark. */
+@media (max-width: 860px) {
+  .list {
+    --key-size: clamp(30px, 8.6vw, 42px);
+    flex-direction: column;
+    gap: var(--space-7);
+    padding-left: var(--space-6);
+  }
+
+  .list::before,
+  .line {
+    top: 0;
+    bottom: 0;
+    right: auto;
+    width: var(--hairline);
+    height: auto;
+  }
+
+  .line {
+    transform-origin: center top;
+  }
+
+  .live .line {
+    transform: scaleY(var(--draw, 0));
+  }
+
+  .item {
+    position: relative;
+  }
+
+  .key {
+    padding-bottom: var(--space-2);
+  }
+
+  /* Centred on the line, level with the middle of the word. */
+  .mark {
+    position: absolute;
+    left: calc(-1 * var(--space-6) - (var(--mark) - var(--hairline)) / 2);
+    top: calc(var(--key-size) * 0.55);
+  }
+
+  .detail {
+    width: auto;
+    padding-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key,
+  .mark,
+  .detail {
+    transition: none;
+  }
+}

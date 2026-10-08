@@ -1,9 +1,33 @@
 # Active session
 
-**Task:**
+**Task:** Redesign the About section (hero and nav untouched). User: nothing tacky, parts should lead on from each other, no centred text.
 
 **Done so far:**
+- About rebuilt as one left-anchored story on a 12-column grid; short notes and details always sit in the last three columns.
+- Kept the ink-in statement. New `Stair` component for "How it works": One world / One speaker / A small group step in two columns per row, and a brass rule between phrase and detail shortens each time (the room narrows). Rules draw in once on arrival.
+- "Who's in the room" (was "Who it's for"): large audience line with the note on its last baseline in the detail column.
+- Values as four rows between hairlines: word in Bodoni, then the rest of its sentence.
+- Removed `HowStage` (dot field) and `BrassKey` at the user's request.
+- Stair refined (user: looked "thrown"): details sit level with their rule, phrases a size smaller. Tried a shared vertical axis joining the rules; user had it removed.
+- Brass rules are scroll-linked (`--draw` set per row in `Stair.tsx`): they draw out scrolling down and retract scrolling up. Phrase shows while its rule is drawn, detail once the rule reaches it; both fade out as it retracts.
+- `src/content/about.ts` restructured into `{ key, detail }` lines.
 
 **Decisions:**
+- Copy lightly reworded to fit the new shape (step details, values details, "Who's in the room"). Needs user sign-off.
 
 **Open / blocked:**
+- Project sits in OneDrive: `.next` cache writes fail intermittently (ENOENT on pack rename). Suggested moving the repo outside OneDrive.
+- Not committed. Three stray dev servers were clashing over `.next` ("missing required error components"); stopped them all, cleared `.next`, one server now on 3000.
+- "How it works" heading hidden visually at user's request (kept for screen readers).
+- Audience part replaced twice (user disliked both the large list and the "…of students" continuation). Now `Audience` component: pinned scroll stage, one line "Open to [audience]" ("Open to" in softer ink, the end swaps: students → … → anyone curious in bordeaux), brass rule grows with progress. Note "No particular background needed" removed at user's request. Reverses on scroll up; plain list under reduced motion. Content: `who.lead` + `who.audiences` in `about.ts`.
+- More breathing room around the stair: row padding clamp(36px, 6.5vh, 72px), longer pause after the statement (.how), and before "Open to".
+- "Access" → "Craft" (user: Access felt entitled); detail 'the real work behind what people do best.' Values redesigned as `Values` component. Rejected: ink-in + brass rule (repetitive), sideways line, still programme, dark "evening", plain large rows. "We care about" label kept looking out of place, so it's gone (sr-only heading only). Current: the values as the arc of one evening (craft → authenticity → connection → discovery), a timeline: brass line draws left→right with scroll (--draw), each value (brass mark, word above, sentence below) appears as the line reaches it; retracts on scroll up. 4 columns via subgrid on desktop; vertical line on the left on phones.
+- Timeline refined (user: a bit wonky): faint stone track always visible with brass drawing along it, 5px brass square marks flush with each word instead of crossing ticks, equal spacing word→line→sentence.
+- Values copy changed to user's pick (option B): Craft / Honesty / Community / Discovery (Company → Community at user request) with short lines. Layout switched from equal columns to equal gaps between words (flex space-between; sentences wrap to their word's width); marks' trigger points measured from the DOM.
+- Intro (`Intro` component, mounted first in page.tsx), on linen, max 380px wide. Balance of the two earlier versions (user): one smooth line at the frame's weight draws the door from the keyhole round and back (min 2.5s after a 1.2x speed-up, holds near 90% until window `load`, line softly follows progress); PORTE's letters fade up as the line passes beneath them on the bottom edge; keyhole as it closes; then 3 and 2. Exit (user: don't open from the logo): the logo fades away, then the linen screen fades to the site, one after the other. Keyhole-opening mask code removed. Letter shapes come from `src/components/introLogo.ts`, generated once from the PNG (marching squares + RDP; 9 marks with left edges). Scroll locked while playing; skipped for reduced motion; CSS fail-safe (6s) only if script never runs. Plays on every load.
+- Closing section (`Closing` component, `<footer id="contact">`, copy in `src/content/contact.ts`): full-width linen band to signal the end. "Pull up a **chair.**" (chair in bordeaux), short lead, design-system `Button` "Explore our events" (#events); "Get in touch" + email in the detail column; sign-off bar under a hairline with logo, nav links (reuses `navLinks`) and © 2026 Porte 32. About's own "See upcoming events" link removed (moved here); its `cta` content and styles deleted.
+- Open: email is the design system's placeholder `hello@porte32.com`; no social links yet (need real URLs). #events still has no target.
+- Nav: hovering (or keyboard-focusing) About opens a small paper panel with its three parts: What we do (One world, one speaker, a small group.), Who it's for (Open to anyone curious.), What we stand for (Craft, honesty, community and discovery.). Each jumps to an anchor (#what-we-do, #who-its-for, #what-we-stand-for). `NavLink` gained optional `parts` in `src/content/hero.ts`; Audience and Values take an `id`. Panel hidden on phones (About just scrolls to the section).
+- About panel made smaller and slicker (user): 268px, 15px serif titles over 12px lines, hairlines between, light shadow; hover turns the title bordeaux and nudges it 3px right (no block highlight).
+- More room around the values timeline (margin-top up to 320px, word/line/sentence gap 32px) and a longer pause before the closing band (About bottom padding up to 380px). Closing heading "Pull up a chair." (user: ugly) → "Which door will you open next?", smaller (max 64px), all ink, answering the hero. Lead no longer repeats "next".
+- Even spacing (user): each About part is now a full screen with its content centred (statement, stair, values via `.screen`/min-height 100svh; Audience was already a pinned full screen), replacing the mixed margins and About's top/bottom padding. Animation ranges retuned so each finishes as its part reaches the centre: InkText done when its bottom reaches 72% (was 55%), Stair rows 0.98→0.76 (was 0.92→0.55), Values 0.95→0.45 (was 0.85→0.35). Nav jump anchors no longer need scroll-margin.
