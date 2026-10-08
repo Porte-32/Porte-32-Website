@@ -1,0 +1,216 @@
+.header {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 0 clamp(12px, 3vw, 40px);
+  pointer-events: none;
+}
+
+.nav {
+  position: relative;
+  pointer-events: auto;
+  isolation: isolate;
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 8px 10px 8px 28px;
+  border-radius: var(--radius-full);
+  background-color: rgba(251, 249, 243, 0.38);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.08) 48%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(100deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.28) 50%, rgba(255, 255, 255, 0) 70%);
+  backdrop-filter: blur(32px) saturate(180%) brightness(1.04);
+  -webkit-backdrop-filter: blur(32px) saturate(180%) brightness(1.04);
+  box-shadow:
+    0 24px 48px -28px rgba(22, 21, 19, 0.34),
+    0 6px 14px -8px rgba(22, 21, 19, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(22, 21, 19, 0.06);
+}
+
+/* Gradient edge: bright at the top, fading to a faint warm line at the bottom. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.35) 45%, rgba(168, 137, 90, 0.28));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.home {
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+  padding: 6px 0;
+}
+
+.logo {
+  display: block;
+  height: 24px;
+  width: auto;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.link {
+  font: 600 var(--text-label) / 1 var(--font-body);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  padding: 13px 18px;
+  color: var(--fg-2);
+  transition: color var(--dur) var(--ease);
+}
+
+/* Brass hairline that draws out from the centre on hover. */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: calc(18px + var(--tracking-label));
+  bottom: 6px;
+  height: 1px;
+  background: var(--ornament);
+  transform: scaleX(0);
+  transition: transform var(--dur) var(--ease);
+}
+
+.link:hover {
+  color: var(--accent);
+}
+
+.link:hover::after,
+.active::after {
+  transform: scaleX(1);
+}
+
+.active {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Phones: logo on top, links spread across a second row. */
+@media (max-width: 640px) {
+  .nav {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 8px 8px;
+    border-radius: 26px;
+  }
+
+  .home {
+    padding: 4px 12px;
+  }
+
+  .logo {
+    height: 22px;
+  }
+
+  .links {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .link {
+    padding: 11px 10px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  .link::after {
+    left: 10px;
+    right: calc(10px + 0.12em);
+    bottom: 4px;
+  }
+}
+
+/* Slim state: while scrolling down the island thins out; scroll up, hover or keyboard focus wakes it. */
+.nav,
+.logo,
+.link,
+.links {
+  transition-duration: 500ms;
+  transition-timing-function: var(--ease);
+}
+
+.nav {
+  transition-property: padding, background-color, box-shadow;
+}
+
+.logo {
+  transition-property: height;
+}
+
+.link {
+  transition-property: color, padding, font-size;
+}
+
+.links {
+  transition-property: max-height, opacity, margin;
+}
+
+.slim:not(:hover):not(:focus-within) {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: rgba(251, 249, 243, 0.3);
+  box-shadow:
+    0 14px 30px -22px rgba(22, 21, 19, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(22, 21, 19, 0.05);
+}
+
+.slim:not(:hover):not(:focus-within) .logo {
+  height: 17px;
+}
+
+.slim:not(:hover):not(:focus-within) .link {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 11px;
+}
+
+/* Phones: the slim island keeps only the logo row. */
+@media (max-width: 640px) {
+  .links {
+    max-height: 60px;
+    overflow: hidden;
+  }
+
+  .slim:not(:hover):not(:focus-within) {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    gap: 0;
+  }
+
+  .slim:not(:hover):not(:focus-within) .links {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .logo,
+  .link,
+  .links {
+    transition-duration: 0ms;
+  }
+}

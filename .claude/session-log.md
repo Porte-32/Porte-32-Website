@@ -39,3 +39,26 @@ Template:
 - Components haven't been checked visually in a browser yet.
 
 **Next:** Choose a framework (Next.js or Astro + React), set it up, and load the fonts and tokens.
+
+## Session 2 — 2026-10-08
+**Done:**
+- Replaced the coming-soon page with Hero v4 from Claude Design: floating glass nav (`SiteNav`, slims on scroll down, wakes on scroll up/hover), hero with rotating word and Craft/Insight/Community tabs (`Hero`), scroll-driven brass key (`BrassKey`, sits behind content).
+- Built the About section after many rejected rounds: statement that inks in word by word on scroll (`InkText`); "How it works" as a pinned scroll stage where a dot field narrows to one brass speaker dot and a ring of ten (`HowStage`, phrases clickable); centred prose for audience and values with key words in spaced capitals.
+- Copy lives in `src/content/hero.ts` and `src/content/about.ts` (`**word**` = spaced capitals).
+
+**Changed:** `src/app/page.tsx`, `page.module.css`, `src/components/{SiteNav,Hero,BrassKey,About,InkText,HowStage}.*`, `src/content/*`
+
+**Decided:**
+- User's taste bar: nothing templated (no 01/02 numbering, caps eyebrows, dash labels, identical card grids, fade-ups everywhere). Reference sites: 245.maisonestelle.com, thetwentytwo.com/london. Pace content so each idea is read.
+- Kept the pill-shaped glass nav and its shadow although DESIGN.md says square corners and no shadows.
+- "One guest" became "One speaker"; speaker line: "Led by someone who knows their field better than anyone."
+
+**Open:**
+- Nothing committed or pushed yet.
+- Nav links and CTAs point to #events, #speakers, #founders, which don't exist yet.
+- Brass key drifts behind the HowStage text column; user may want it hidden there.
+- Audience and values passages (centred prose) not yet confirmed by the user.
+- No lint script exists; only `npm run typecheck`.
+- Vercel deploy and domain still to be connected by the user.
+
+**Next:** Get feedback on the rest of About, then Events section.

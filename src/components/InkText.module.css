@@ -1,0 +1,12 @@
+.word,
+.faint {
+  transition: color var(--dur) var(--ease);
+}
+
+.word {
+  color: inherit;
+}
+
+.faint {
+  color: color-mix(in srgb, var(--p32-taupe) 50%, var(--bg));
+}
