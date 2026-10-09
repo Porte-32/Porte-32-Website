@@ -99,8 +99,12 @@
   white-space: normal;
 }
 
-/* Phones: the changing end drops under "Open to". */
+/* Phones: the changing end drops under "Open to". A shorter runway, so the five audiences pass without long empty scrolling. */
 @media (max-width: 860px) {
+  .wrap {
+    height: 240vh;
+  }
+
   .line,
   .rule {
     grid-column: 1 / -1;

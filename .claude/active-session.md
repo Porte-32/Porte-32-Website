@@ -45,3 +45,4 @@
   - Hero tabs/buttons and Closing email/links: hover only on devices that hover (no colour stuck after a tap), same look on :active. Grey tap flash off (globals.css).
   - Not touched: design-system `Button`/`TextLink` (hover via mouseenter) and tokens.css `a:hover`, which can still stick after a tap on iPhone. Not yet checked on a real phone.
 - Quote: second 'each' → 'the' (co-founder, on GitHub).
+- Phones (user: Open to and values too far apart, too much empty space): Audience runway 320vh → 240vh at ≤860px; Values loses its own full screen there (min-height 0) and follows straight on, padding-bottom --space-9 before the closing band. Laptop unchanged.
