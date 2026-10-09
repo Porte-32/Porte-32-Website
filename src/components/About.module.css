@@ -21,14 +21,51 @@
   margin: 0 auto;
 }
 
-/* The statement keeps its treatment: large, inking in word by word as you scroll. */
+/* The statement is told as a quote from the founders, after the design system's Quote:
+   brass opening mark, display-serif text that inks in word by word as you scroll, then a brass rule and the author.
+   It spans the full measure inside the system's 1.5px ink frame (the logo's weight, a door frame),
+   with the same space between the text and the frame on all four sides. */
+.quote {
+  margin: 0;
+  display: grid;
+  gap: 22px;
+  padding: clamp(32px, 6vw, 88px);
+  border: 1.5px solid var(--line-strong);
+}
+
+.mark {
+  height: 32px;
+  font: 500 72px / 0.5 var(--font-display);
+  color: var(--ornament);
+}
+
 .statement {
   margin: 0;
-  max-width: 23ch;
-  font: 500 clamp(32px, 4vw, 56px) / 1.14 var(--font-display);
-  letter-spacing: var(--tracking-display);
+  font: 500 clamp(26px, 3vw, 38px) / 1.3 var(--font-display);
   color: var(--fg-1);
-  text-wrap: balance;
+  text-wrap: pretty;
+  /* Bodoni's joined "ff" read oddly at this size (e.g. "offering"), so letters stay separate. */
+  font-variant-ligatures: none;
+}
+
+.attribution {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font: 500 var(--text-label) / 1 var(--font-body);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.rule {
+  width: 32px;
+  height: 1px;
+  background: var(--ornament);
+}
+
+.role {
+  opacity: 0.8;
 }
 
 /* Each part shares the 12 columns; details and notes always land in the last three. */
@@ -56,7 +93,7 @@
 /* Phones: the statement a touch smaller, with more air between its lines. */
 @media (max-width: 640px) {
   .statement {
-    font-size: clamp(26px, 7.4vw, 34px);
-    line-height: 1.24;
+    font-size: clamp(22px, 6vw, 26px);
+    line-height: 1.34;
   }
 }

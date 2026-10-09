@@ -2,8 +2,12 @@ export type AboutLine = { key: string; detail: string };
 
 /** About copy. Each part leads into the next: one world → one speaker → a small group → who that group is → what we care about. */
 export const about = {
-  statement:
-    'Porte 32 is a series of events where curious people sit down with someone who works in a world they’d like to understand.',
+  /** Opens About as a quote from the founders, as if they're telling the story. */
+  statement: {
+    text: 'Porte 32 is a curated series of live talks, each offering an opportunity to explore each speaker’s field and engage in thoughtful discussion.',
+    author: 'The founders',
+    role: 'Porte 32',
+  },
 
   how: {
     title: 'How it works',

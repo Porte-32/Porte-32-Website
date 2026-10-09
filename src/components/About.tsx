@@ -15,12 +15,20 @@ type AboutProps = {
  * Short notes and details share the last three columns throughout.
  */
 export function About({ content }: AboutProps) {
-  const { how, who, values } = content;
+  const { statement, how, who, values } = content;
   return (
     <section id="about" className={styles.about} aria-label="About Porte 32">
       <div className={styles.inner}>
         <div className={`${styles.screen} ${styles.statementScreen}`}>
-          <InkText text={content.statement} className={styles.statement} />
+          <blockquote className={styles.quote}>
+            <span className={styles.mark} aria-hidden="true">“</span>
+            <InkText text={statement.text} className={styles.statement} />
+            <footer className={styles.attribution}>
+              <span className={styles.rule} aria-hidden="true" />
+              {statement.author}
+              <span className={styles.role}>· {statement.role}</span>
+            </footer>
+          </blockquote>
         </div>
 
         <div id="what-we-do" className={`${styles.part} ${styles.screen}`}>
