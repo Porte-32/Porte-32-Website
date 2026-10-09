@@ -4,7 +4,7 @@ export type AboutLine = { key: string; detail: string };
 export const about = {
   /** Opens About as a quote from the founders, as if they're telling the story. */
   statement: {
-    text: 'Porte 32 is a curated series of live talks, each offering an opportunity to explore each speaker’s field and engage in thoughtful discussion.',
+    text: 'Porte 32 is a curated series of live talks, each offering an opportunity to explore the speaker’s field and engage in thoughtful discussion.',
     author: 'The founders',
     role: 'Porte 32',
   },

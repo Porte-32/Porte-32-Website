@@ -44,3 +44,4 @@
   - On phones (≤860px), Stair phrases, "Open to" line, value words and the Closing heading all use `--text-h2` (34px). Hero title keeps its own size (fits "Behind every door," on one line).
   - Hero tabs/buttons and Closing email/links: hover only on devices that hover (no colour stuck after a tap), same look on :active. Grey tap flash off (globals.css).
   - Not touched: design-system `Button`/`TextLink` (hover via mouseenter) and tokens.css `a:hover`, which can still stick after a tap on iPhone. Not yet checked on a real phone.
+- Quote: second 'each' → 'the' (co-founder, on GitHub).
