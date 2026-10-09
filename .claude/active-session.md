@@ -37,3 +37,4 @@
 - Quote: equal space between text and frame on all sides (user); 9/3 column split dropped, attribution back under the text.
 - Quote copy trimmed to the second sentence (user): 'Porte 32 is a curated series of live talks, …'
 - Quote: ligatures off (user: 'offering' looked weird, Bodoni's ff ligature).
+- Quote: second 'each' → 'the' (user).
