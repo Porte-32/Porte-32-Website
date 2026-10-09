@@ -37,3 +37,10 @@
 - Quote: equal space between text and frame on all sides (user); 9/3 column split dropped, attribution back under the text.
 - Quote copy trimmed to the second sentence (user): 'Porte 32 is a curated series of live talks, …'
 - Quote: ligatures off (user: 'offering' looked weird, Bodoni's ff ligature).
+- Quote frame now draws in with the scroll (`DrawnFrame` component replaces the static border): one 1.5px ink line from the bottom-left corner up, across the top, down the right and back along the bottom, at one speed round the corners (progress shared along the perimeter). Runs while the frame's centre moves from 105% to 55% of the screen height, and retracts when you scroll back up. With reduced motion, or before the script runs, the frame is just there.
+- Phone menu (user): About's parts removed from under About (just the word now). P|32 monogram (`public/monogram.png`, copied from Logos) as a faint watermark, 88px at 12% opacity, bottom-left in line with the links; fades in after them.
+- Phone pass 2 (user picked: steadier scroll, one type scale, touch feedback; declined keeping laptop choreography):
+  - Scroll effects (InkText, Stair, DrawnFrame, Values, Audience) measure against `viewportHeight()` in `src/lib/viewport.ts` (documentElement.clientHeight, = svh), not window.innerHeight, so the phone address bar sliding away no longer makes them jump.
+  - On phones (≤860px), Stair phrases, "Open to" line, value words and the Closing heading all use `--text-h2` (34px). Hero title keeps its own size (fits "Behind every door," on one line).
+  - Hero tabs/buttons and Closing email/links: hover only on devices that hover (no colour stuck after a tap), same look on :active. Grey tap flash off (globals.css).
+  - Not touched: design-system `Button`/`TextLink` (hover via mouseenter) and tokens.css `a:hover`, which can still stick after a tap on iPhone. Not yet checked on a real phone.

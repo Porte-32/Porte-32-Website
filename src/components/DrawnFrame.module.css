@@ -1,0 +1,49 @@
+/* The system's 1.5px ink frame as four sides, each scaled by its share of the drawn line (--l, --t, --r, --b, set by DrawnFrame.tsx).
+   Each side grows from the corner the line arrives at. Unset, they are fully drawn. */
+.frame {
+  position: relative;
+}
+
+.side {
+  position: absolute;
+  background: var(--line-strong);
+  pointer-events: none;
+}
+
+.left,
+.right {
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+}
+
+.top,
+.bottom {
+  left: 0;
+  right: 0;
+  height: 1.5px;
+}
+
+.left {
+  left: 0;
+  transform-origin: bottom;
+  transform: scaleY(var(--l, 1));
+}
+
+.top {
+  top: 0;
+  transform-origin: left;
+  transform: scaleX(var(--t, 1));
+}
+
+.right {
+  right: 0;
+  transform-origin: top;
+  transform: scaleY(var(--r, 1));
+}
+
+.bottom {
+  bottom: 0;
+  transform-origin: right;
+  transform: scaleX(var(--b, 1));
+}

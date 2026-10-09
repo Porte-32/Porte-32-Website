@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 import type { AboutLine } from '@/content/about';
+import { viewportHeight } from '@/lib/viewport';
 import styles from './Stair.module.css';
 
 type StairProps = {
@@ -31,7 +32,7 @@ export function Stair({ lines }: StairProps) {
 
     const tick = () => {
       raf = 0;
-      const vh = window.innerHeight;
+      const vh = viewportHeight();
       let moving = false;
       rows.current.forEach((el, i) => {
         if (!el) return;

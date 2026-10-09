@@ -24,13 +24,12 @@
 /* The statement is told as a quote from the founders, after the design system's Quote:
    brass opening mark, display-serif text that inks in word by word as you scroll, then a brass rule and the author.
    It spans the full measure inside the system's 1.5px ink frame (the logo's weight, a door frame),
-   with the same space between the text and the frame on all four sides. */
+   with the same space between the text and the frame on all four sides. The frame draws itself in with the scroll (DrawnFrame). */
 .quote {
   margin: 0;
   display: grid;
   gap: 22px;
   padding: clamp(32px, 6vw, 88px);
-  border: 1.5px solid var(--line-strong);
 }
 
 .mark {

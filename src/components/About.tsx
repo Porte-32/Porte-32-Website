@@ -1,5 +1,6 @@
 import type { about as aboutContent } from '@/content/about';
 import { Audience } from './Audience';
+import { DrawnFrame } from './DrawnFrame';
 import { InkText } from './InkText';
 import { Stair } from './Stair';
 import { Values } from './Values';
@@ -20,15 +21,17 @@ export function About({ content }: AboutProps) {
     <section id="about" className={styles.about} aria-label="About Porte 32">
       <div className={styles.inner}>
         <div className={`${styles.screen} ${styles.statementScreen}`}>
-          <blockquote className={styles.quote}>
-            <span className={styles.mark} aria-hidden="true">“</span>
-            <InkText text={statement.text} className={styles.statement} />
-            <footer className={styles.attribution}>
-              <span className={styles.rule} aria-hidden="true" />
-              {statement.author}
-              <span className={styles.role}>· {statement.role}</span>
-            </footer>
-          </blockquote>
+          <DrawnFrame>
+            <blockquote className={styles.quote}>
+              <span className={styles.mark} aria-hidden="true">“</span>
+              <InkText text={statement.text} className={styles.statement} />
+              <footer className={styles.attribution}>
+                <span className={styles.rule} aria-hidden="true" />
+                {statement.author}
+                <span className={styles.role}>· {statement.role}</span>
+              </footer>
+            </blockquote>
+          </DrawnFrame>
         </div>
 
         <div id="what-we-do" className={`${styles.part} ${styles.screen}`}>

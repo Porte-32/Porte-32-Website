@@ -73,7 +73,13 @@
   transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
-.tab:hover {
+@media (hover: hover) {
+  .tab:hover {
+    color: var(--accent);
+  }
+}
+
+.tab:active {
   color: var(--accent);
 }
 
@@ -114,7 +120,15 @@
   transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
-.primary:hover {
+@media (hover: hover) {
+  .primary:hover {
+    color: var(--p32-paper);
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+}
+
+.primary:active {
   color: var(--p32-paper);
   background: var(--accent-hover);
   border-color: var(--accent-hover);
@@ -131,7 +145,14 @@
   transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
-.secondary:hover {
+@media (hover: hover) {
+  .secondary:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+}
+
+.secondary:active {
   color: var(--accent);
   border-bottom-color: var(--accent);
 }

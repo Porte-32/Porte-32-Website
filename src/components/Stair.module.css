@@ -92,7 +92,7 @@
 
   .key {
     display: block;
-    font-size: clamp(32px, 9vw, 42px);
+    font-size: var(--text-h2);
   }
 
   .rule {

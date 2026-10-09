@@ -107,7 +107,7 @@
   }
 
   .line {
-    font-size: clamp(34px, 9.6vw, 46px);
+    font-size: var(--text-h2);
     line-height: 1.1;
   }
 

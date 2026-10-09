@@ -8,6 +8,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Phones: no grey flash on tap; links and buttons answer with their own pressed state (:active) instead. */
+html { -webkit-tap-highlight-color: transparent; }
+
 :focus-visible {
   outline: 1.5px solid var(--focus-ring);
   outline-offset: 3px;

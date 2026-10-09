@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { viewportHeight } from '@/lib/viewport';
 import styles from './Audience.module.css';
 
 type AudienceProps = {
@@ -31,7 +32,7 @@ export function Audience({ id, lead, audiences }: AudienceProps) {
       const el = wrap.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
-      const run = Math.max(1, r.height - window.innerHeight);
+      const run = Math.max(1, r.height - viewportHeight());
       const target = Math.min(1, Math.max(0, -r.top / run));
       current += (target - current) * 0.16;
       if (Math.abs(target - current) < 0.001) current = target;

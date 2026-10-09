@@ -111,7 +111,7 @@ export function SiteNav({ links }: SiteNavProps) {
         </button>
       </nav>
 
-      {/* Phones: the full-screen menu. */}
+      {/* Phones: the full-screen menu, the monogram faintly beneath the links. */}
       <div id="site-menu" className={`${styles.menu} ${open ? styles.menuOpen : ''}`} aria-hidden={!open}>
         <ul className={styles.menuList}>
           {links.map((link, i) => (
@@ -119,20 +119,10 @@ export function SiteNav({ links }: SiteNavProps) {
               <a href={link.href} className={styles.menuLink} tabIndex={open ? 0 : -1} onClick={() => go(link.label)}>
                 {link.label}
               </a>
-              {link.parts && (
-                <ul className={styles.menuParts}>
-                  {link.parts.map(part => (
-                    <li key={part.href}>
-                      <a href={part.href} className={styles.menuPart} tabIndex={open ? 0 : -1} onClick={() => go(link.label)}>
-                        {part.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </li>
           ))}
         </ul>
+        <img src="/monogram.png" alt="" className={styles.watermark} />
       </div>
     </header>
   );

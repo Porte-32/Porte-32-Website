@@ -243,7 +243,7 @@
   .toggleOpen span:nth-child(2) { opacity: 0; }
   .toggleOpen span:nth-child(3) { transform: translateY(-5.25px) rotate(-45deg); }
 
-  /* The menu: paper over the whole screen, links large in the serif, About's parts quietly beneath it. */
+  /* The menu: paper over the whole screen, links large in the serif. */
   .menu {
     display: block;
     position: fixed;
@@ -290,24 +290,24 @@
     text-decoration: none;
   }
 
-  .menuParts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 18px;
-    margin: 10px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .menuPart {
-    font: 400 var(--text-small) / 1.4 var(--font-body);
-    color: var(--fg-3);
-    text-decoration: none;
-  }
-
-  .menuLink:active,
-  .menuPart:active {
+  .menuLink:active {
     color: var(--accent);
+  }
+
+  /* The P|32 roundel as a faint watermark in the bottom corner, settling in after the links. */
+  .watermark {
+    position: absolute;
+    left: 28px;
+    bottom: calc(40px + env(safe-area-inset-bottom));
+    width: 88px;
+    height: auto;
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease);
+  }
+
+  .menuOpen .watermark {
+    opacity: 0.12;
+    transition-delay: 360ms;
   }
 }
 

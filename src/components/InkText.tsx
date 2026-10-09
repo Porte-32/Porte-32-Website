@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { viewportHeight } from '@/lib/viewport';
 import styles from './InkText.module.css';
 
 type InkTextProps = {
@@ -24,7 +25,7 @@ export function InkText({ text, className = '' }: InkTextProps) {
       const el = ref.current;
       if (!el) return;
       const { top, height } = el.getBoundingClientRect();
-      const vh = window.innerHeight;
+      const vh = viewportHeight();
       // Starts inking when the paragraph's top reaches 85% of the screen, done by the time its bottom reaches 72%.
       const start = vh * 0.85;
       const end = vh * 0.72 - height;

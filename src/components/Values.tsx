@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import type { AboutLine } from '@/content/about';
+import { viewportHeight } from '@/lib/viewport';
 import styles from './Values.module.css';
 
 type ValuesProps = {
@@ -51,7 +52,7 @@ export function Values({ id, title, items }: ValuesProps) {
     let current = 0;
     const tick = () => {
       raf = 0;
-      const vh = window.innerHeight;
+      const vh = viewportHeight();
       const target = clamp((vh * START - el.getBoundingClientRect().top) / (vh * (START - END)));
       current += (target - current) * 0.16;
       if (Math.abs(target - current) < 0.001) current = target;

@@ -69,7 +69,13 @@
   transition: color var(--dur-fast) var(--ease), background-image var(--dur-fast) var(--ease);
 }
 
-.email:hover {
+@media (hover: hover) {
+  .email:hover {
+    color: var(--accent);
+  }
+}
+
+.email:active {
   color: var(--accent);
 }
 
@@ -116,7 +122,13 @@
   transition: color var(--dur-fast) var(--ease);
 }
 
-.link:hover {
+@media (hover: hover) {
+  .link:hover {
+    color: var(--accent);
+  }
+}
+
+.link:active {
   color: var(--accent);
 }
 
@@ -124,8 +136,12 @@
   color: var(--fg-3);
 }
 
-/* Phones: one column; the contact details follow the invitation. */
+/* Phones: one column; the contact details follow the invitation. The heading takes the same size as About's phrases. */
 @media (max-width: 860px) {
+  .heading {
+    font-size: var(--text-h2);
+  }
+
   .invite,
   .contact {
     grid-column: 1 / -1;
