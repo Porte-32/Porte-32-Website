@@ -7,7 +7,7 @@ import styles from './BrassKey.module.css';
 // The key leaves its starting spot over this much scroll from the top, and starts settling into its end spot
 // this far before the end of the page (both in screen heights).
 const LEAVING = 0.6;
-const LANDING = 0.7;
+const LANDING = 0.9;
 // While it falls it is a faint watermark, a little larger; at either end it is solid at its resting size.
 const WATERMARK = { ink: 0.12, scale: 1.3 };
 // Whole turns it tumbles through on the way down, on top of turning from its start pose to its end pose.
@@ -16,6 +16,8 @@ const TAU = Math.PI * 2;
 const clamp = (v: number) => Math.min(1, Math.max(0, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const ease = (t: number) => t * t * (3 - 2 * t);
+// A softer ease for the landing: it starts and finishes more gently.
+const glide = (t: number) => t * t * t * (t * (t * 6 - 15) + 10);
 
 /** The key's drawing, upright: bow at the top, blade at the bottom. */
 function KeyShape() {
@@ -104,9 +106,10 @@ export function BrassKey() {
       const turn = lerp(a.turn, endTurn, p);
       const tilt = 28 * Math.sin(p * TAU * TURNS);
 
-      // Landing follows the scroll exactly, so the key sits precisely in its end spot; the page rising to meet it.
+      // Landing follows the same lagging scroll as the fall, so the key glides into its end spot rather than snapping
+      // to the page; once the scroll stops it keeps easing in until it is exactly in place.
       const ws = reduce ? 0 : ease(clamp(1 - window.scrollY / (vh * LEAVING)));
-      const we = reduce ? 1 : ease(clamp(1 - (max - window.scrollY) / (vh * LANDING)));
+      const we = reduce ? 1 : glide(clamp(1 - (max - p * max) / (vh * LANDING)));
       const kx = lerp(x, to.left + to.width / 2, we);
       const ky = lerp(y, to.top + to.height / 2, we);
       const settled = Math.max(ws, we);
@@ -118,7 +121,8 @@ export function BrassKey() {
       el.style.setProperty('--ink', lerp(WATERMARK.ink, 1, ease(clamp(settled * 2 - 1))).toFixed(3));
 
       // At the very top or bottom, hand over to the key resting in the page; hide the falling key while zoomed in.
-      const state = reduce || max - window.scrollY <= 0.5 ? 'end' : window.scrollY <= 0.5 ? 'start' : '';
+      const atEnd = max - window.scrollY <= 0.5 && we > 0.9995;
+      const state = reduce || atEnd ? 'end' : window.scrollY <= 0.5 ? 'start' : '';
       if (root.dataset.key !== state) root.dataset.key = state;
       const zoomed = (window.visualViewport?.scale ?? 1) > 1.01;
       el.style.visibility = state || zoomed ? 'hidden' : 'visible';
