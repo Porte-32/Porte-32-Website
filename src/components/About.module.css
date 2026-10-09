@@ -89,6 +89,13 @@
   white-space: nowrap;
 }
 
+/* Phones: the stair keeps no full screen of its own, so "Open to" follows it at the same distance it leaves before the values. */
+@media (max-width: 860px) {
+  .part.screen {
+    min-height: 0;
+  }
+}
+
 /* Phones: the statement a touch smaller, with more air between its lines. */
 @media (max-width: 640px) {
   .statement {

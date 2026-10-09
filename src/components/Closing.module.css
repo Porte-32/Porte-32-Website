@@ -136,8 +136,13 @@
   color: var(--fg-3);
 }
 
-/* Phones: one column; the contact details follow the invitation. The heading takes the same size as About's phrases. */
+/* Phones: one column; the contact details follow the invitation. The heading takes the same size as About's phrases,
+   with the same room above it as the values leave below the band's edge. */
 @media (max-width: 860px) {
+  .closing {
+    padding-top: var(--space-10);
+  }
+
   .heading {
     font-size: var(--text-h2);
   }
