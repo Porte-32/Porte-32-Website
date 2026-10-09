@@ -1,9 +1,12 @@
-/* A full-width linen band: the change of ground tells you you've reached the end. */
+/* A full-width linen band: the change of ground tells you you've reached the end. The paper turns to linen
+   gradually over the band's first stretch (--fade), so the ground shifts as you scroll in rather than at a hard edge,
+   and the heading starts once the linen is full. */
 .closing {
+  --fade: clamp(200px, 40vh, 440px);
   position: relative;
   z-index: 1;
-  padding: clamp(96px, 16vh, 168px) clamp(20px, 5vw, 96px) var(--space-6);
-  background: var(--bg-alt);
+  padding: var(--fade) clamp(20px, 5vw, 96px) var(--space-6);
+  background: linear-gradient(var(--bg), var(--bg-alt) var(--fade));
 }
 
 .inner {
@@ -136,13 +139,8 @@
   color: var(--fg-3);
 }
 
-/* Phones: one column; the contact details follow the invitation. The heading takes the same size as About's phrases,
-   with the same room above it as the values leave below the band's edge. */
+/* Phones: one column; the contact details follow the invitation. The heading takes the same size as About's phrases. */
 @media (max-width: 860px) {
-  .closing {
-    padding-top: var(--space-10);
-  }
-
   .heading {
     font-size: var(--text-h2);
   }

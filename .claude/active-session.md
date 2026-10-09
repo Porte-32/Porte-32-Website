@@ -47,3 +47,5 @@
 - Quote: second 'each' → 'the' (co-founder, on GitHub).
 - Phones (user: Open to and values too far apart, too much empty space): Audience runway 320vh → 240vh at ≤860px; Values loses its own full screen there (min-height 0) and follows straight on, padding-bottom --space-9 before the closing band. Laptop unchanged.
 - Phones (user: gap A small group → Open to too big; Discovery → closing too tight): stair part drops its full screen at ≤860px (`.part.screen` min-height 0); values padding-bottom and Closing padding-top both --space-10 (144px) either side of the linen band's edge.
+- Phones: Audience pulled up 20svh (margin-top) under the stair, still too far from 'A small group' per user.
+- Closing (all sizes, user: colour change forced/tacky, wants separation from Discovery): band fades paper → linen over its first --fade (clamp 200px/40vh/440px) as a gradient, heading starts once linen is full. Phone-only Closing padding-top override removed; phone Values padding-bottom back to --space-9.

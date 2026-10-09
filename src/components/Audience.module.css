@@ -99,10 +99,12 @@
   white-space: normal;
 }
 
-/* Phones: the changing end drops under "Open to". A shorter runway, so the five audiences pass without long empty scrolling. */
+/* Phones: the changing end drops under "Open to". A shorter runway, so the five audiences pass without long empty scrolling.
+   Pulled up under the stair by part of its pinned screen's empty top, so "Open to" doesn't sit a screen away from "A small group". */
 @media (max-width: 860px) {
   .wrap {
     height: 240vh;
+    margin-top: -20svh;
   }
 
   .line,
