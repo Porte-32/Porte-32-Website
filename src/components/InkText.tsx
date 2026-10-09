@@ -7,11 +7,13 @@ import styles from './InkText.module.css';
 type InkTextProps = {
   text: string;
   className?: string;
+  /** The element to render; a paragraph unless it's a heading. */
+  as?: 'p' | 'h2';
 };
 
-/** Paragraph whose words darken one by one as it scrolls up into reading position. */
-export function InkText({ text, className = '' }: InkTextProps) {
-  const ref = useRef<HTMLParagraphElement>(null);
+/** Text whose words darken one by one as it scrolls up into reading position. */
+export function InkText({ text, className = '', as: Tag = 'p' }: InkTextProps) {
+  const ref = useRef<HTMLHeadingElement & HTMLParagraphElement>(null);
   const words = text.split(' ');
   const [inked, setInked] = useState(words.length);
   const [live, setLive] = useState(false);
@@ -44,12 +46,12 @@ export function InkText({ text, className = '' }: InkTextProps) {
   }, [words.length]);
 
   return (
-    <p ref={ref} className={className}>
+    <Tag ref={ref} className={className}>
       {words.map((w, i) => (
         <span key={i} className={live && i >= inked ? styles.faint : styles.word}>
           {w}{i < words.length - 1 ? ' ' : ''}
         </span>
       ))}
-    </p>
+    </Tag>
   );
 }

@@ -1,0 +1,36 @@
+/* Fixed over the screen, behind the page's content (and after the closing's deepening, so it shows on it).
+   Its width matches the spot it lands in (Closing's .berth); while drifting it is scaled up (BrassKey.tsx). */
+.key {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  pointer-events: none;
+  width: clamp(34px, 3vw, 44px);
+  color: var(--p32-bordeaux);
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 600ms var(--ease);
+}
+
+/* Phones: a smaller key, so the watermark doesn't crowd a narrow screen (its spots in Hero and Closing match). */
+@media (max-width: 640px) {
+  .key {
+    width: 26px;
+  }
+}
+
+/* --ink runs from a faint watermark while it drifts to solid once it has landed (set by BrassKey.tsx). */
+.svg {
+  display: block;
+  overflow: visible;
+  opacity: var(--ink, 1);
+  filter: drop-shadow(0 14px 18px rgba(22, 21, 19, 0.14));
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+/* Once it has landed, hovering or pressing the way on to the events turns the key, as in a lock. */
+:global(html:has([data-key-turn]:hover)) .svg,
+:global(html:has([data-key-turn]:active)) .svg {
+  transform: rotateY(180deg);
+}

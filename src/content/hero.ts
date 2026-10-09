@@ -15,7 +15,6 @@ export const navLinks: NavLink[] = [
   },
   { label: 'Events', href: '#events' },
   { label: 'Speakers', href: '#speakers' },
-  { label: 'Founders', href: '#founders' },
 ];
 
 /** Rotates after "Behind every door," in the hero headline. */

@@ -26,8 +26,11 @@ export function Hero({ words, pillars, primary, secondary }: HeroProps) {
   return (
     <section className={styles.hero}>
       <div className={styles.inner}>
+        {/* Where the key starts, before it falls down the page (BrassKey): far right, level with the first line; above it on phones. */}
+        <span className={styles.keyAbove} data-key-start aria-hidden="true" />
         <h1 className={styles.title}>
           Behind every door,
+          <span className={styles.keyBeside} data-key-start aria-hidden="true" />
           <br />
           <span className={styles.slot}>
             <span key={word} className={styles.word}>{words[word]}</span>

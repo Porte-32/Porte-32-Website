@@ -1,4 +1,5 @@
 import { About } from '@/components/About';
+import { BrassKey } from '@/components/BrassKey';
 import { Closing } from '@/components/Closing';
 import { Hero } from '@/components/Hero';
 import { Intro } from '@/components/Intro';
@@ -15,7 +16,8 @@ export default function Home() {
       <SiteNav links={navLinks} />
       <Hero words={heroWords} pillars={pillars} primary={heroActions.primary} secondary={heroActions.secondary} />
       <About content={about} />
-      <Closing content={contact} links={navLinks} />
+      <Closing content={contact} />
+      <BrassKey />
     </div>
   );
 }

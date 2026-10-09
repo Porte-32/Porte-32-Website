@@ -127,11 +127,10 @@
 
 /* Phones: the track and line run down the left; each value sits beside its mark.
    No full screen of its own: it follows straight on from "Open to" (whose pinned screen already leaves the pause),
-   with room beneath before the closing band's fade to linen begins. */
+   and the closing screen, centring its question, leaves the pause after it. */
 @media (max-width: 860px) {
   .values {
     min-height: 0;
-    padding-bottom: var(--space-9);
   }
 
   .list {

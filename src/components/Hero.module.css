@@ -8,6 +8,7 @@
 }
 
 .inner {
+  position: relative;
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
@@ -15,7 +16,28 @@
   gap: clamp(48px, 9vh, 96px);
 }
 
+/* The key's starting spot (BrassKey centres itself on whichever is shown): a space the size of the tilted key
+   (clamp(34px, 3vw, 44px) wide), a little in from the right of the measure, level with
+   "Behind every door,". On phones, where that line fills the width, it sits above the title at the right instead. */
+.keyBeside {
+  position: absolute;
+  top: 0;
+  right: clamp(24px, 6vw, 120px);
+  width: calc(clamp(34px, 3vw, 44px) * 2.4);
+  height: 1lh;
+}
+
+.keyAbove {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--space-4));
+  width: calc(clamp(34px, 3vw, 44px) * 2.4);
+  aspect-ratio: 1;
+}
+
 .title {
+  position: relative;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
@@ -171,6 +193,16 @@
 
 /* Phones: sized so "Behind every door," holds one line. */
 @media (max-width: 640px) {
+  .keyBeside {
+    display: none;
+  }
+
+  /* Sized for the phone key (26px wide, BrassKey). */
+  .keyAbove {
+    display: block;
+    width: calc(26px * 2.4);
+  }
+
   .title {
     font-size: clamp(32px, 9.4vw, 44px);
     line-height: 1.08;

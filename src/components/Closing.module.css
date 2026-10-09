@@ -1,28 +1,46 @@
-/* A full-width linen band: the change of ground tells you you've reached the end. The paper turns to linen
-   gradually over the band's first stretch (--fade), so the ground shifts as you scroll in rather than at a hard edge,
-   and the heading starts once the linen is full. */
-.closing {
-  --fade: clamp(200px, 40vh, 440px);
-  position: relative;
-  z-index: 1;
-  padding: var(--fade) clamp(20px, 5vw, 96px) var(--space-6);
-  background: linear-gradient(var(--bg), var(--bg-alt) var(--fade));
+/* A shade deeper than linen over the whole screen, behind the page's content. Its opacity follows the scroll
+   (Closing.tsx), so the page deepens as the closing arrives and is one even shade once it's in place. */
+.dusk {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: color-mix(in srgb, var(--bg-alt) 60%, var(--p32-stone));
+  opacity: 0;
+  pointer-events: none;
 }
 
-.inner {
+/* The last full screen: question and landing centred in it like every other part, logo and copyright at its foot. */
+.closing {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: var(--space-9) clamp(20px, 5vw, 96px) var(--space-6);
+}
+
+.stage,
+.bar {
+  width: 100%;
   max-width: 1320px;
   margin: 0 auto;
+}
+
+/* The question on the left, the key level with it on the right. Beneath: the icons under the question,
+   and under the key a fine line and the way on to the events. */
+.stage {
+  align-self: center;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--space-5);
-  align-items: end;
 }
 
-.invite {
-  grid-column: 1 / 9;
-}
-
+/* Inks in word by word as it arrives (InkText), as the founders' quote does at the start of About. */
 .heading {
+  grid-column: 1 / 9;
+  grid-row: 1;
+  align-self: center;
   margin: 0;
   max-width: 16ch;
   font: 500 clamp(36px, 4.4vw, 64px) / 1.08 var(--font-display);
@@ -30,68 +48,104 @@
   color: var(--fg-1);
 }
 
-.emphasis {
-  color: var(--accent);
-}
-
-.lead {
-  margin: var(--space-5) 0 0;
-  max-width: 44ch;
-  font: 400 var(--text-lead) / 1.5 var(--font-body);
-  color: var(--fg-2);
-  text-wrap: pretty;
-}
-
-.action {
-  margin-top: var(--space-7);
-}
-
-/* Contact details in the last three columns, level with the foot of the invitation. */
-.contact {
+/* The key's landing shares the stage's rows (subgrid), so the key stays level with the question,
+   and is as wide as the way on to the events, so the key stands centred over it. */
+.landing {
   grid-column: 10 / -1;
+  grid-row: 1 / 3;
+  justify-self: start;
   display: grid;
-  gap: var(--space-3);
-  justify-items: start;
+  grid-template-rows: subgrid;
 }
 
-.title {
-  margin: 0;
-  font: 500 var(--text-h4) / var(--leading-heading) var(--font-display);
-  color: var(--fg-3);
+/* Where the key comes to rest, upright: an empty spot its own size
+   (BrassKey places itself over it; the key is clamp(34px, 3vw, 44px) wide). */
+.berth {
+  align-self: center;
+  justify-self: center;
+  width: clamp(34px, 3vw, 44px);
+  aspect-ratio: 60 / 170;
 }
 
-.email {
-  font: 500 clamp(20px, 1.8vw, 26px) / 1.3 var(--font-display);
-  color: var(--fg-1);
+/* Beneath the question and the key, one quiet line in the site's small capitals (as in the nav and the hero):
+   how to reach us on the left, the way on to the events under the key. */
+.reach,
+.next {
+  margin-top: var(--space-8);
+  align-self: center;
+}
+
+.contact,
+.next {
+  font: 500 var(--text-label) / 1 var(--font-body);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   text-decoration: none;
-  background-image: linear-gradient(var(--ornament), var(--ornament));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 1px;
-  padding-bottom: 4px;
-  transition: color var(--dur-fast) var(--ease), background-image var(--dur-fast) var(--ease);
+}
+
+.reach {
+  grid-column: 1 / 9;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-7);
+}
+
+.contact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  color: var(--fg-2);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* The way on to the events, bold in ink on a fine ink rule, like the hero's "Our story", centred under the key.
+   The tracking after the last letter is taken back, so the words and rule are truly centred.
+   Hover or tap: it turns bordeaux and the key above turns, as in a lock. */
+.next {
+  justify-self: center;
+  margin-right: calc(-1 * var(--tracking-label));
+  padding: 6px 0;
+  border-bottom: var(--hairline) solid currentColor;
+  font-weight: 700;
+  color: var(--fg-1);
+  transition: color var(--dur) var(--ease);
 }
 
 @media (hover: hover) {
-  .email:hover {
+  .contact:hover {
+    color: var(--accent);
+  }
+
+  .next:hover {
     color: var(--accent);
   }
 }
 
-.email:active {
+.contact:active {
   color: var(--accent);
 }
 
-/* Sign-off: logo, the site's links, copyright, under a hairline. */
+.next:active {
+  color: var(--accent);
+}
+
+/* Sign-off: logo and copyright, under a hairline. */
 .bar {
-  grid-column: 1 / -1;
-  margin-top: clamp(96px, 14vh, 144px);
+  margin-top: var(--space-8);
   padding-top: var(--space-5);
   border-top: var(--hairline) solid var(--line);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-5) var(--space-7);
+  gap: var(--space-4) var(--space-7);
   flex-wrap: wrap;
 }
 
@@ -106,56 +160,57 @@
   width: auto;
 }
 
-.links {
-  display: flex;
-  gap: var(--space-6);
-  flex-wrap: wrap;
-}
-
-.link,
 .copyright {
-  font: 500 var(--text-label) / 1 var(--font-body);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.link {
-  color: var(--fg-2);
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease);
-}
-
-@media (hover: hover) {
-  .link:hover {
-    color: var(--accent);
-  }
-}
-
-.link:active {
-  color: var(--accent);
-}
-
-.copyright {
+  font: 400 var(--text-small) / 1.4 var(--font-body);
   color: var(--fg-3);
 }
 
-/* Phones: one column; the contact details follow the invitation. The heading takes the same size as About's phrases. */
+/* Narrower screens: the question first; then the key with the way on to the events beneath it;
+   then how to reach us. */
 @media (max-width: 860px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .heading {
+    grid-column: 1;
     font-size: var(--text-h2);
   }
 
-  .invite,
-  .contact {
-    grid-column: 1 / -1;
+  .landing {
+    grid-column: 1;
+    grid-row: 2 / 4;
+    margin-top: var(--space-7);
   }
 
-  .contact {
-    margin-top: var(--space-8);
+  .next {
+    margin-top: var(--space-5);
   }
 
-  .bar {
-    flex-direction: column;
-    align-items: flex-start;
+  .reach {
+    grid-column: 1;
+    grid-row: 4;
+    margin-top: var(--space-7);
+  }
+}
+
+/* Phones only: the smaller phone key (26px wide, BrassKey) in its spot, and one even rhythm down the screen:
+   48px from the question to the key, 16px from the key to the words beneath it, 48px on to how to reach us. */
+@media (max-width: 640px) {
+  .berth {
+    width: 26px;
+  }
+
+  .landing {
+    margin-top: var(--space-7);
+  }
+
+  .next {
+    margin-top: var(--space-4);
+  }
+
+  .reach {
+    margin-top: var(--space-7);
+    column-gap: var(--space-6);
   }
 }
