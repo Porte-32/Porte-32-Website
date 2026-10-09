@@ -58,9 +58,12 @@
   grid-template-rows: subgrid;
 }
 
-/* Where the key comes to rest, upright: an empty spot its own size
-   (BrassKey places itself over it; the key is clamp(34px, 3vw, 44px) wide). */
+/* Where the key comes to rest, upright: a spot its own size holding the resting key (RestingKey), which the falling
+   key lands exactly on. */
 .berth {
+  --key-w: clamp(34px, 3vw, 44px);
+  --key-turn: 0deg;
+  position: relative;
   align-self: center;
   justify-self: center;
   width: clamp(34px, 3vw, 44px);
@@ -122,6 +125,11 @@
 @media (hover: hover) {
   .contact:hover {
     color: var(--accent);
+  }
+
+  /* Hovering the way on to the events turns the key, as in a lock. */
+  .landing:has(.next:hover) .berth svg {
+    transform: rotateY(180deg);
   }
 
   .next:hover {
@@ -194,9 +202,9 @@
   }
 }
 
-/* Phones only: the key ends lying flat (turned -90deg from upright, bow left, blade right; BrassKey reads
-   --key-turn) just after "Upcoming events", on its line. The spot is the smaller phone key (26px wide, 170/60 long)
-   on its side. One even rhythm down the screen: 48px from the question to that line, 48px on to how to reach us. */
+/* Phones only: the key ends lying flat (turned -90deg from upright, bow left, blade right), a little larger
+   (26px phone key x 1.25), to the left of "Upcoming events" on its line; the spot is that key on its side.
+   One even rhythm down the screen: 48px from the question to that line, 48px on to how to reach us. */
 @media (max-width: 640px) {
   .landing {
     display: flex;
@@ -206,9 +214,9 @@
   }
 
   .berth {
-    --key-turn: -90;
-    order: 1;
-    width: calc(26px * 170 / 60);
+    --key-w: calc(26px * 1.25);
+    --key-turn: -90deg;
+    width: calc(26px * 1.25 * 170 / 60);
     aspect-ratio: 170 / 60;
   }
 

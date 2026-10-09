@@ -1,5 +1,5 @@
 /* Fixed over the screen, behind the page's content (and after the closing's deepening, so it shows on it).
-   Its width matches the spot it lands in (Closing's .berth); while drifting it is scaled up (BrassKey.tsx). */
+   While falling it is scaled up from this width; at either end it matches the resting key (BrassKey.tsx). */
 .key {
   position: fixed;
   left: 0;
@@ -13,14 +13,14 @@
   transition: opacity 600ms var(--ease);
 }
 
-/* Phones: a smaller key, so the watermark doesn't crowd a narrow screen (its spots in Hero and Closing match). */
+/* Phones: a smaller key, so the watermark doesn't crowd a narrow screen. */
 @media (max-width: 640px) {
   .key {
     width: 26px;
   }
 }
 
-/* --ink runs from a faint watermark while it drifts to solid once it has landed (set by BrassKey.tsx). */
+/* --ink runs from a faint watermark while it falls to solid at either end (set by BrassKey.tsx). */
 .svg {
   display: block;
   overflow: visible;
@@ -29,8 +29,21 @@
   transition: transform var(--dur-slow) var(--ease);
 }
 
-/* Once it has landed, hovering or pressing the way on to the events turns the key, as in a lock. */
-:global(html:has([data-key-turn]:hover)) .svg,
-:global(html:has([data-key-turn]:active)) .svg {
-  transform: rotateY(180deg);
+/* The key at rest in its spot, centred in it, at the spot's size (--key-w) and pose (--key-turn).
+   Hidden unless the falling key has settled there (BrassKey sets html[data-key]). */
+.resting {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--key-w);
+  translate: -50% -50%;
+  rotate: var(--key-turn, 0deg);
+  color: var(--p32-bordeaux);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+:global(html[data-key='start']) .atStart,
+:global(html[data-key='end']) .atEnd {
+  visibility: visible;
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Pillar } from '@/content/hero';
+import { RestingKey } from './BrassKey';
 import styles from './Hero.module.css';
 
 type HeroProps = {
@@ -27,10 +28,10 @@ export function Hero({ words, pillars, primary, secondary }: HeroProps) {
     <section className={styles.hero}>
       <div className={styles.inner}>
         {/* Where the key starts, before it falls down the page (BrassKey): far right, level with the first line; above it on phones. */}
-        <span className={styles.keyAbove} data-key-start aria-hidden="true" />
+        <span className={styles.keyAbove} data-key-start aria-hidden="true"><RestingKey at="start" /></span>
         <h1 className={styles.title}>
           Behind every door,
-          <span className={styles.keyBeside} data-key-start aria-hidden="true" />
+          <span className={styles.keyBeside} data-key-start aria-hidden="true"><RestingKey at="start" /></span>
           <br />
           <span className={styles.slot}>
             <span key={word} className={styles.word}>{words[word]}</span>

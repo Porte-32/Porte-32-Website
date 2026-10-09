@@ -19,6 +19,12 @@
 /* The key's starting spot (BrassKey centres itself on whichever is shown): a space the size of the tilted key
    (clamp(34px, 3vw, 44px) wide), a little in from the right of the measure, level with
    "Behind every door,". On phones, where that line fills the width, it sits above the title at the right instead. */
+.keyBeside,
+.keyAbove {
+  --key-w: clamp(34px, 3vw, 44px);
+  --key-turn: -45deg;
+}
+
 .keyBeside {
   position: absolute;
   top: 0;
@@ -199,6 +205,7 @@
 
   /* Sized for the phone key (26px wide, BrassKey). */
   .keyAbove {
+    --key-w: 26px;
     display: block;
     width: calc(26px * 2.4);
   }

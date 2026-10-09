@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import type { contact as contactContent } from '@/content/contact';
 import { viewportHeight } from '@/lib/viewport';
+import { RestingKey } from './BrassKey';
 import { InkText } from './InkText';
 import styles from './Closing.module.css';
 
@@ -60,8 +61,8 @@ export function Closing({ content }: ClosingProps) {
           <InkText as="h2" text={content.heading} className={styles.heading} />
 
           <div className={styles.landing}>
-            <span className={styles.berth} data-key-berth aria-hidden="true" />
-            <a href={content.cta.href} className={styles.next} data-key-turn>
+            <span className={styles.berth} data-key-berth aria-hidden="true"><RestingKey at="end" /></span>
+            <a href={content.cta.href} className={styles.next}>
               {content.cta.label}
             </a>
           </div>
