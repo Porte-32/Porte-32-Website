@@ -194,19 +194,26 @@
   }
 }
 
-/* Phones only: the smaller phone key (26px wide, BrassKey) in its spot, and one even rhythm down the screen:
-   48px from the question to the key, 16px from the key to the words beneath it, 48px on to how to reach us. */
+/* Phones only: the key ends lying flat (turned -90deg from upright, bow left, blade right; BrassKey reads
+   --key-turn) just after "Upcoming events", on its line. The spot is the smaller phone key (26px wide, 170/60 long)
+   on its side. One even rhythm down the screen: 48px from the question to that line, 48px on to how to reach us. */
 @media (max-width: 640px) {
-  .berth {
-    width: 26px;
-  }
-
   .landing {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
     margin-top: var(--space-7);
   }
 
+  .berth {
+    --key-turn: -90;
+    order: 1;
+    width: calc(26px * 170 / 60);
+    aspect-ratio: 170 / 60;
+  }
+
   .next {
-    margin-top: var(--space-4);
+    margin-top: 0;
   }
 
   .reach {

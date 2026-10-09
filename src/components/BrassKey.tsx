@@ -59,7 +59,11 @@ export function BrassKey() {
       const to = berth.getBoundingClientRect();
       const x0 = from.left + from.width / 2;
       const y0 = from.top + window.scrollY + from.height / 2;
-      const x = lerp(x0, to.left + to.width / 2, p) + vw * 0.06 * Math.sin(p * TAU);
+      // On phones it keeps to the right (clear of the left-hand text) until late in the fall.
+      const across = vw <= 640 ? p ** 3 : p;
+      const x = lerp(x0, to.left + to.width / 2, across) + vw * 0.06 * Math.sin(p * TAU);
+      // How the end spot wants the key to lie, relative to upright (its --key-turn; e.g. flat on phones).
+      const endTurn = 360 * TURNS + (parseFloat(getComputedStyle(berth).getPropertyValue('--key-turn')) || 0);
       const y = lerp(y0, vh * 0.7, ease(clamp(p * 1.15)));
       const turn = lerp(START_TILT, 360 * TURNS, p);
       const tilt = 28 * Math.sin(p * TAU * TURNS);
@@ -71,7 +75,7 @@ export function BrassKey() {
       const ky = lerp(y, to.top + to.height / 2, we);
       const settled = Math.max(ws, we);
       const scale = lerp(WATERMARK.scale, 1, settled);
-      el.style.transform = `translate3d(${kx}px, ${ky}px, 0) translate(-50%, -50%) rotate(${lerp(turn, we > ws ? 360 * TURNS : START_TILT, settled)}deg) rotateY(${lerp(tilt, 0, settled)}deg) scale(${scale})`;
+      el.style.transform = `translate3d(${kx}px, ${ky}px, 0) translate(-50%, -50%) rotate(${lerp(turn, we > ws ? endTurn : START_TILT, settled)}deg) rotateY(${lerp(tilt, 0, settled)}deg) scale(${scale})`;
       // Solid only near either spot: it fades to a watermark over the first half of leaving, back over the last half of landing.
       el.style.setProperty('--ink', lerp(WATERMARK.ink, 1, ease(clamp(settled * 2 - 1))).toFixed(3));
       el.style.opacity = '1';

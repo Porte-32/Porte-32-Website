@@ -72,3 +72,4 @@
 - 'UPCOMING EVENTS →' now bold (700) ink on an ink rule (user); bordeaux on hover/tap.
 - 'UPCOMING EVENTS' arrow removed and label centred under the key's shaft (user); trailing tracking taken back with a negative margin so it centres truly. Screenshot-checked.
 - Phones only (≤640px, user: normalise spacing and key size, leave laptop/iPad): key 26px wide (BrassKey.module.css), its Hero start spot and Closing berth sized to match; end screen on one rhythm (question → key 48px, key → 'UPCOMING EVENTS' 16px, → contacts 48px; contacts 32px apart). Whole page reviewed in 15 phone screenshots.
+- Phones only (user): key ends lying flat (-90deg from upright via the berth's --key-turn, read by BrassKey) just after 'UPCOMING EVENTS' on its line (landing becomes a flex row). Fall keeps to the right until late (horizontal progress p^3 at ≤640px), so it passes Craft/Honesty on the right. Laptop/iPad unchanged. Phone screenshots checked.
