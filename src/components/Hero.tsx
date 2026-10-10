@@ -59,7 +59,7 @@ export function Hero({ words, pillars, primary, secondary }: HeroProps) {
           </div>
 
           <div className={styles.actions}>
-            <a href={primary.href} className={styles.primary}>{primary.label}</a>
+            <a href={primary.href} className={styles.primary} data-intro>{primary.label}</a>
             <a href={secondary.href} className={styles.secondary}>{secondary.label}</a>
           </div>
         </div>

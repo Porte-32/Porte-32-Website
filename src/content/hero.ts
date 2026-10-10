@@ -8,6 +8,7 @@ export const navLinks: NavLink[] = [
   {
     label: 'About',
     href: '/#about',
+    intro: true,
     parts: [
       { title: 'What we do', line: 'One world, one speaker, a small group.', href: '/#what-we-do' },
       { title: 'Who it’s for', line: 'Open to anyone curious.', href: '/#who-its-for' },

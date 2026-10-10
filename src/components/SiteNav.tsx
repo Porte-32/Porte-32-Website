@@ -87,7 +87,7 @@ export function SiteNav({ links, current }: SiteNavProps) {
                   <ul className={styles.parts}>
                     {link.parts.map(part => (
                       <li key={part.href}>
-                        <a href={part.href} className={styles.part} onClick={() => setActive(link.label)}>
+                        <a href={part.href} className={styles.part} data-intro={link.intro || undefined} onClick={() => setActive(link.label)}>
                           <span className={styles.partTitle}>{part.title}</span>
                           <span className={styles.partLine}>{part.line}</span>
                         </a>
