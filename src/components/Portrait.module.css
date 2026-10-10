@@ -20,3 +20,17 @@
   text-transform: uppercase;
   color: var(--fg-3);
 }
+
+/* Round: square, a full circle; the placeholder is the initials in the serif. */
+.circle {
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+}
+
+.circle .placeholder {
+  font: 500 var(--text-h4) / 1 var(--font-display);
+  font-variation-settings: 'opsz' 11;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--fg-2);
+}

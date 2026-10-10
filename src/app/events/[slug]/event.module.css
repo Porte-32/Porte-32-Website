@@ -57,6 +57,17 @@
   color: var(--fg-1);
 }
 
+/* The speaker's line; on phones the round portrait sits beside it (the avatar is hidden on larger screens). */
+.byline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.avatar {
+  display: none;
+}
+
 .speaker {
   margin: 0;
   font: 400 var(--text-lead) / 1.4 var(--font-body);
@@ -251,8 +262,15 @@
     padding-bottom: var(--space-7);
   }
 
-  .header > :first-child {
-    width: 140px;
+  /* The large portrait gives way to a round one beside the speaker's name. */
+  .portrait {
+    display: none;
+  }
+
+  .avatar {
+    display: grid;
+    flex-shrink: 0;
+    width: 56px;
   }
 
   .title {

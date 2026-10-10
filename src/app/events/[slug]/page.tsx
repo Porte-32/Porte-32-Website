@@ -22,7 +22,8 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
 }
 
 /**
- * One event. The top mirrors its line on the events page, larger: the speaker's portrait on the left, then its field
+ * One event. The top mirrors its line on the events page, larger: the speaker's portrait on the left (on phones, a
+ * small round portrait beside the speaker's name instead), then its field
  * and number, the title, the speaker, and when, how long and where on one line, divided by fine rules. Beneath a
  * hairline, the evening and then the speaker on the left, the tickets (Luma) on the right, staying in view. At the end,
  * for anything else: our email.
@@ -33,6 +34,7 @@ export default async function EventPage({ params }: EventPageProps) {
   if (!event) notFound();
   const date = eventDate(event.start);
   const [lead, ...rest] = event.about;
+  const initials = event.speaker.name.split(' ').map(word => word[0]).join('');
 
   return (
     <article>
@@ -41,16 +43,19 @@ export default async function EventPage({ params }: EventPageProps) {
       </a>
 
       <header className={styles.header}>
-        <Portrait name={event.speaker.name} photo={event.speaker.photo} placeholder={eventsPage.portrait} />
+        <Portrait name={event.speaker.name} photo={event.speaker.photo} placeholder={eventsPage.portrait} className={styles.portrait} />
         <div className={styles.intro}>
           <p className={styles.meta}>
             {event.field}
             <span className={styles.edition}>{event.edition}</span>
           </p>
           <h1 className={styles.title}>{event.title}</h1>
-          <p className={styles.speaker}>
-            with <strong>{event.speaker.name}</strong>, {event.speaker.role.toLowerCase()}
-          </p>
+          <div className={styles.byline}>
+            <Portrait name={event.speaker.name} photo={event.speaker.photo} placeholder={initials} shape="circle" className={styles.avatar} />
+            <p className={styles.speaker}>
+              with <strong>{event.speaker.name}</strong>, {event.speaker.role.toLowerCase()}
+            </p>
+          </div>
           <ul className={styles.details}>
             <li>{date.weekday} {date.day} {date.month}</li>
             <li>{date.time}</li>
