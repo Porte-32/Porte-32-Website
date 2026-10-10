@@ -62,7 +62,7 @@ export function SiteNav({ links, current }: SiteNavProps) {
   return (
     <header className={styles.header}>
       <nav className={`${styles.nav} ${slim && !open ? styles.slim : ''}`}>
-        <a href="/#" className={styles.home} onClick={() => setOpen(false)}>
+        <a href="/" className={styles.home} onClick={() => setOpen(false)} data-intro>
           <img src="/logo-full-ink.png" alt="Porte32" className={styles.logo} />
         </a>
         <div className={styles.links}>
@@ -71,6 +71,7 @@ export function SiteNav({ links, current }: SiteNavProps) {
               <a
                 key={link.label}
                 href={link.href}
+                data-intro={link.intro || undefined}
                 onClick={() => setActive(link.label)}
                 className={`${styles.link} ${active === link.label ? styles.active : ''}`}
               >
@@ -118,7 +119,7 @@ export function SiteNav({ links, current }: SiteNavProps) {
         <ul className={styles.menuList}>
           {links.map((link, i) => (
             <li key={link.label} className={styles.menuItem} style={{ transitionDelay: open ? `${120 + i * 60}ms` : '0ms' }}>
-              <a href={link.href} className={styles.menuLink} tabIndex={open ? 0 : -1} onClick={() => go(link.label)}>
+              <a href={link.href} data-intro={link.intro || undefined} className={styles.menuLink} tabIndex={open ? 0 : -1} onClick={() => go(link.label)}>
                 {link.label}
               </a>
             </li>

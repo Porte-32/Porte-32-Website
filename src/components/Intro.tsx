@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { introPlays } from '@/lib/intro';
 import { KEYHOLE, LOGO_GROUPS, LOGO_SIZE } from './introLogo';
 import styles from './Intro.module.css';
 
@@ -34,6 +35,8 @@ const numerals = LOGO_GROUPS.map((g, i) => i).filter(i => i > KEYHOLE);
  * Opening sequence: one smooth line draws the door frame of the logo, starting at the keyhole and travelling round;
  * it follows the page's loading, so it doubles as the loader. PORTE's letters fade up as the line passes beneath them,
  * the keyhole and 32 arrive as it closes. Then the logo fades away, and the linen gives way to the site.
+ * Plays on the first page of a visit, on any reload, and after the nav logo or the closing's "Upcoming events" is
+ * pressed; other pages open straight away (lib/intro.ts, whose head script hides the screen before first paint).
  * Skipped for reduced motion; a CSS fail-safe hides it if script never runs.
  */
 export function Intro() {
@@ -46,7 +49,7 @@ export function Intro() {
   const marks = useRef<(SVGPathElement | null)[]>([]);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!introPlays() || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setDone(true);
       return;
     }

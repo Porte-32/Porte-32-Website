@@ -1,6 +1,7 @@
 /** A part of a page, shown under its nav link on hover. */
 export type NavPart = { title: string; line: string; href: string };
-export type NavLink = { label: string; href: string; parts?: NavPart[] };
+/** `intro`: the logo opening plays on the page this link opens (see lib/intro.ts). */
+export type NavLink = { label: string; href: string; parts?: NavPart[]; intro?: boolean };
 export type Pillar = { title: string; detail: string };
 
 export const navLinks: NavLink[] = [
@@ -13,7 +14,7 @@ export const navLinks: NavLink[] = [
       { title: 'What we stand for', line: 'Craft, honesty, community and discovery.', href: '/#what-we-stand-for' },
     ],
   },
-  { label: 'Events', href: '/events' },
+  { label: 'Events', href: '/events', intro: true },
   { label: 'Speakers', href: '/#speakers' },
 ];
 

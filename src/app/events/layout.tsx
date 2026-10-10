@@ -1,14 +1,16 @@
 import type { ReactNode } from 'react';
+import { Intro } from '@/components/Intro';
 import { SignOff } from '@/components/SignOff';
 import { SiteNav } from '@/components/SiteNav';
 import { contact } from '@/content/contact';
 import { navLinks } from '@/content/hero';
 import styles from './events.module.css';
 
-/** The events pages: the site nav, the page, and the sign-off at the foot. */
+/** The events pages: the logo opening (as on the home page), the site nav, the page, and the sign-off at the foot. */
 export default function EventsLayout({ children }: { children: ReactNode }) {
   return (
     <div className={styles.page}>
+      <Intro />
       <SiteNav links={navLinks} current="Events" />
       <main className={styles.main}>{children}</main>
       <SignOff copyright={contact.copyright} />

@@ -34,6 +34,11 @@
   to { visibility: hidden; }
 }
 
+/* Not playing on this page (decided before first paint, see lib/intro.ts), or reduced motion: no intro screen. */
+:global(html[data-intro-seen]) .intro {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro {
     display: none;

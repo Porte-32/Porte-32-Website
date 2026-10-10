@@ -65,7 +65,7 @@ export function Closing({ content }: ClosingProps) {
 
           <div className={styles.landing}>
             <span className={styles.berth} data-key-berth aria-hidden="true"><RestingKey at="end" /></span>
-            <a href={content.cta.href} className={styles.next}>
+            <a href={content.cta.href} className={styles.next} data-intro>
               {content.cta.label}
             </a>
           </div>
