@@ -53,7 +53,7 @@ export function RestingKey({ at }: { at: 'start' | 'end' }) {
  * sideways drift; it lags the scroll a little, so it gathers and sheds speed. Over the last stretch it settles into
  * its spot in the closing (`data-key-berth`) and turns solid again. Everything reverses going up.
  * At the very top and bottom the key in the page (RestingKey) takes over, so it can't drift; while the page is
- * pinch-zoomed the falling key hides. Without motion it simply rests in its end spot.
+ * being pinched or is zoomed in nothing changes and the falling key stays hidden. Without motion it simply rests in its end spot.
  */
 export function BrassKey() {
   const ref = useRef<HTMLDivElement>(null);
@@ -63,6 +63,7 @@ export function BrassKey() {
     const root = document.documentElement;
     let cur = 0;
     let raf = 0;
+    let pinching = false;
 
     // A resting key's size and pose, so the falling key can match it exactly.
     const pose = (spot: Element) => {
@@ -77,6 +78,13 @@ export function BrassKey() {
       const berth = document.querySelector<HTMLElement>('[data-key-berth]');
       const start = Array.from(document.querySelectorAll<HTMLElement>('[data-key-start]')).find(s => s.getClientRects().length);
       if (!el || !berth || !start) return;
+
+      // While two fingers are on the screen or the page is zoomed in, the browser nudges the scroll about; leave
+      // everything as it was (a resting key stays put) and just keep the falling key out of sight.
+      if (pinching || (window.visualViewport?.scale ?? 1) > 1.001) {
+        el.style.visibility = 'hidden';
+        return;
+      }
       const vw = root.clientWidth;
       const vh = viewportHeight();
       const max = Math.max(1, root.scrollHeight - vh);
@@ -121,18 +129,27 @@ export function BrassKey() {
       // Solid only near either spot: it fades to a watermark over the first half of leaving, back over the last half of landing.
       el.style.setProperty('--ink', lerp(WATERMARK.ink, 1, ease(clamp(settled * 2 - 1))).toFixed(3));
 
-      // At the very top or bottom, hand over to the key resting in the page; hide the falling key while zoomed in.
-      const atEnd = max - window.scrollY <= 0.5 && we > 0.9995;
+      // At the very top or bottom, hand over to the key resting in the page. Once landed it stays handed over within
+      // a few pixels of the bottom (where the falling key would sit in the same place anyway), so small scroll
+      // wobbles, like the bounce at the end of the page, don't make it flicker.
+      const fromEnd = max - window.scrollY;
+      const atEnd = we > 0.9995 && (fromEnd <= 0.5 || (root.dataset.key === 'end' && fromEnd <= 4));
       const state = reduce || atEnd ? 'end' : window.scrollY <= 0.5 ? 'start' : '';
       if (root.dataset.key !== state) root.dataset.key = state;
-      const zoomed = (window.visualViewport?.scale ?? 1) > 1.01;
-      el.style.visibility = state || zoomed ? 'hidden' : 'visible';
+      el.style.visibility = state ? 'hidden' : 'visible';
       el.style.opacity = '1';
     };
 
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    const onTouch = (e: TouchEvent) => {
+      const two = e.touches.length > 1;
+      if (two !== pinching) { pinching = two; onScroll(); }
+    };
     const vv = window.visualViewport;
     tick();
+    window.addEventListener('touchstart', onTouch, { passive: true });
+    window.addEventListener('touchend', onTouch, { passive: true });
+    window.addEventListener('touchcancel', onTouch, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     vv?.addEventListener('resize', onScroll);
@@ -141,6 +158,9 @@ export function BrassKey() {
       cancelAnimationFrame(raf);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      window.removeEventListener('touchstart', onTouch);
+      window.removeEventListener('touchend', onTouch);
+      window.removeEventListener('touchcancel', onTouch);
       vv?.removeEventListener('resize', onScroll);
       vv?.removeEventListener('scroll', onScroll);
       delete root.dataset.key;
