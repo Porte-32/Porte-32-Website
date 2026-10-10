@@ -96,10 +96,11 @@ export function BrassKey() {
 
       // Falling: from where it starts (its spot as it sits at the top of the page) it only sinks down the screen
       // while the page passes it, drifting across towards where it will land with a slight sway, and tumbling at a
-      // steady rate with a little 3D wobble. On phones it keeps to the right until late in the fall.
+      // steady rate with a little 3D wobble. On phones it keeps to the right the whole way down, beside the values,
+      // and only the landing brings it across.
       const x0 = from.left + from.width / 2;
       const y0 = from.top + window.scrollY + from.height / 2;
-      const across = vw <= 640 ? p ** 3 : p;
+      const across = vw <= 640 ? 0 : p;
       const x = lerp(x0, to.left + to.width / 2, across) + vw * 0.06 * Math.sin(p * TAU);
       const y = lerp(y0, vh * 0.7, ease(clamp(p * 1.15)));
       const endTurn = b.turn + 360 * TURNS;
