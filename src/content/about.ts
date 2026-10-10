@@ -31,7 +31,7 @@ export const about = {
     items: [
       { key: 'Craft', detail: 'The real work, up close.' },
       { key: 'Honesty', detail: 'How it actually works.' },
-      { key: 'Community', detail: 'People worth knowing.' },
+      { key: 'Community', detail: 'A circle that grows each time.' },
       { key: 'Discovery', detail: 'Something you didn’t expect.' },
     ] satisfies AboutLine[],
   },
