@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import type { contact as contactContent } from '@/content/contact';
 import { viewportHeight } from '@/lib/viewport';
 import { RestingKey } from './BrassKey';
+import { Curtain } from './Curtain';
 import { InkText } from './InkText';
 import styles from './Closing.module.css';
 
@@ -23,7 +24,8 @@ const clamp = (v: number) => Math.min(1, Math.max(0, v));
  * finds the `data-key-berth` spot). Beneath them, one quiet line in small capitals: how to reach us (email and
  * LinkedIn, each with its icon) under the question, and the way on to the events under the key; hovering that turns
  * the key.
- * The logo and copyright sit at the foot of the screen.
+ * Under all that, the fields we're thinking of opening drift past (Curtain). The logo and copyright sit at the foot
+ * of the screen.
  */
 export function Closing({ content }: ClosingProps) {
   const footer = useRef<HTMLElement>(null);
@@ -88,6 +90,8 @@ export function Closing({ content }: ClosingProps) {
             </a>
           </div>
         </div>
+
+        <Curtain label={content.doors.label} items={content.doors.items} className={styles.curtain} />
 
         <div className={styles.bar}>
           <a href="#" className={styles.home}>

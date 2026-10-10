@@ -1,0 +1,104 @@
+/* Under the closing's question and key: the fields drifting past across the whole width of the screen (out past the
+   closing's side padding);
+   min-width: 0 keeps the long moving line from widening the closing's grid. */
+.curtain {
+  min-width: 0;
+  margin: var(--space-8) calc(-1 * clamp(20px, 5vw, 96px)) 0;
+}
+
+/* Between two faint hairlines; it all fades out at both edges, so it seems to come from and go behind the sides of
+   the screen. */
+.window {
+  overflow: hidden;
+  padding: var(--space-5) 0;
+  border-block: var(--hairline) solid color-mix(in srgb, var(--line-strong) 14%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Two identical runs side by side; moving the pair by half its width brings the second exactly where the first was. */
+.track {
+  display: flex;
+  width: max-content;
+  animation: drift 96s linear infinite;
+}
+
+.list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each field in the display serif, softly inked, with a small brass square after it, like the marks on the values. */
+.item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font: 400 var(--text-h3) / 1.3 var(--font-display);
+  letter-spacing: var(--tracking-display);
+  font-variant-ligatures: none;
+  color: var(--fg-2);
+}
+
+.item::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  margin: 0 var(--space-6);
+  background: var(--ornament);
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Phones: a step smaller, so three or so fields show at once, with a narrower fade at the edges. */
+@media (max-width: 640px) {
+  .curtain {
+    margin-top: var(--space-8);
+  }
+
+  .window {
+    padding: var(--space-4) 0;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .item {
+    font-size: var(--text-lead);
+  }
+
+  .item::after {
+    margin: 0 var(--space-4);
+  }
+}
+
+/* Without motion: one still list, wrapping, in line with the stage. */
+@media (prefers-reduced-motion: reduce) {
+  .window {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-inline: clamp(20px, 5vw, 96px);
+    box-sizing: content-box;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .track {
+    width: auto;
+    animation: none;
+  }
+
+  .list {
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+  }
+
+  .list[aria-hidden],
+  .item[aria-hidden] {
+    display: none;
+  }
+}

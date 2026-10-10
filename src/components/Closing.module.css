@@ -16,7 +16,7 @@
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr auto auto;
   padding: var(--space-9) clamp(20px, 5vw, 96px) var(--space-6);
 }
 
@@ -206,6 +206,24 @@
    (26px phone key x 1.25), to the left of "Upcoming events" on its line; the spot is that key on its side.
    One even rhythm down the screen: 48px from the question to that line, 48px on to how to reach us. */
 @media (max-width: 640px) {
+  /* The question, key, contacts and the drifting fields (Curtain) sit together in the middle of the screen,
+     with even space above and below. */
+  .closing {
+    grid-template-rows: 1fr auto auto 1fr auto;
+  }
+
+  .stage {
+    grid-row: 2;
+  }
+
+  .curtain {
+    grid-row: 3;
+  }
+
+  .bar {
+    grid-row: 5;
+  }
+
   .landing {
     display: flex;
     align-items: center;
