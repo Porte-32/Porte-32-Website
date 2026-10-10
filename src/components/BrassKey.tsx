@@ -8,7 +8,9 @@ import styles from './BrassKey.module.css';
 // this far before the end of the page (both in screen heights).
 const LEAVING = 0.6;
 const LANDING = 0.9;
-// Once landed it stays anchored in its end spot until you scroll back up this far from the bottom (in screen heights).
+// It has fully landed this far above the bottom of the page, and anchors in its end spot anywhere below that; once
+// anchored it stays until you scroll back up past ANCHOR (both in screen heights).
+const SETTLED = 0.15;
 const ANCHOR = 0.25;
 // While it falls it is a faint watermark, a little larger; at either end it is solid at its resting size.
 const WATERMARK = { ink: 0.12, scale: 1.3 };
@@ -128,7 +130,7 @@ export function BrassKey() {
       // Landing follows the same lagging scroll as the fall, so the key glides into its end spot rather than snapping
       // to the page; once the scroll stops it keeps easing in until it is exactly in place.
       const ws = reduce ? 0 : ease(clamp(1 - window.scrollY / (vh * LEAVING)));
-      const we = reduce ? 1 : glide(clamp(1 - (max - p * max) / (vh * LANDING)));
+      const we = reduce ? 1 : glide(clamp(1 - (max - p * max - vh * SETTLED) / (vh * LANDING)));
       const kx = lerp(x, to.left + to.width / 2, we);
       const ky = lerp(y, to.top + to.height / 2, we);
       const settled = Math.max(ws, we);
@@ -140,7 +142,7 @@ export function BrassKey() {
       el.style.setProperty('--ink', lerp(WATERMARK.ink, 1, ease(clamp(settled * 2 - 1))).toFixed(3));
 
       // At the very top or bottom, hand over to the key resting in the page (and keep it there while anchored).
-      const atEnd = anchored || (we > 0.9995 && fromEnd <= 0.5);
+      const atEnd = anchored || (we > 0.9995 && fromEnd <= vh * SETTLED);
       const state = reduce || atEnd ? 'end' : window.scrollY <= 0.5 ? 'start' : '';
       if (root.dataset.key !== state) root.dataset.key = state;
       el.style.visibility = state ? 'hidden' : 'visible';
