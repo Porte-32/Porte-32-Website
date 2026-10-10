@@ -6,6 +6,8 @@ import styles from './SiteNav.module.css';
 
 type SiteNavProps = {
   links: NavLink[];
+  /** The link for the page you're on, marked as active. */
+  current?: string;
 };
 
 /**
@@ -13,8 +15,8 @@ type SiteNavProps = {
  * A link with parts (About) shows them in a small panel beneath it on hover or keyboard focus.
  * On phones the links give way to a menu button that opens a full-screen menu.
  */
-export function SiteNav({ links }: SiteNavProps) {
-  const [active, setActive] = useState<string | null>(null);
+export function SiteNav({ links, current }: SiteNavProps) {
+  const [active, setActive] = useState<string | null>(current ?? null);
   const [slim, setSlim] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -60,7 +62,7 @@ export function SiteNav({ links }: SiteNavProps) {
   return (
     <header className={styles.header}>
       <nav className={`${styles.nav} ${slim && !open ? styles.slim : ''}`}>
-        <a href="#" className={styles.home} onClick={() => setOpen(false)}>
+        <a href="/#" className={styles.home} onClick={() => setOpen(false)}>
           <img src="/logo-full-ink.png" alt="Porte32" className={styles.logo} />
         </a>
         <div className={styles.links}>

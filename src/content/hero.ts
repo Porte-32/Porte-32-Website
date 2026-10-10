@@ -6,15 +6,15 @@ export type Pillar = { title: string; detail: string };
 export const navLinks: NavLink[] = [
   {
     label: 'About',
-    href: '#about',
+    href: '/#about',
     parts: [
-      { title: 'What we do', line: 'One world, one speaker, a small group.', href: '#what-we-do' },
-      { title: 'Who it’s for', line: 'Open to anyone curious.', href: '#who-its-for' },
-      { title: 'What we stand for', line: 'Craft, honesty, community and discovery.', href: '#what-we-stand-for' },
+      { title: 'What we do', line: 'One world, one speaker, a small group.', href: '/#what-we-do' },
+      { title: 'Who it’s for', line: 'Open to anyone curious.', href: '/#who-its-for' },
+      { title: 'What we stand for', line: 'Craft, honesty, community and discovery.', href: '/#what-we-stand-for' },
     ],
   },
-  { label: 'Events', href: '#events' },
-  { label: 'Speakers', href: '#speakers' },
+  { label: 'Events', href: '/events' },
+  { label: 'Speakers', href: '/#speakers' },
 ];
 
 /** Rotates after "Behind every door," in the hero headline. */
@@ -37,6 +37,6 @@ export const pillars: Pillar[] = [
 ];
 
 export const heroActions = {
-  primary: { label: 'Upcoming events', href: '#events' },
+  primary: { label: 'Upcoming events', href: '/events' },
   secondary: { label: 'Our story →', href: '#about' },
 };

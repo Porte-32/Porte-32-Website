@@ -6,6 +6,7 @@ import { viewportHeight } from '@/lib/viewport';
 import { RestingKey } from './BrassKey';
 import { Curtain } from './Curtain';
 import { InkText } from './InkText';
+import { MailIcon } from './MailIcon';
 import styles from './Closing.module.css';
 
 type ClosingProps = {
@@ -71,10 +72,7 @@ export function Closing({ content }: ClosingProps) {
 
           <div className={styles.reach}>
             <a href={`mailto:${content.email}`} className={styles.contact}>
-              <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.icon}>
-                <rect x="1.75" y="4.75" width="20.5" height="14.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M2 6l10 7.5L22 6" fill="none" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
+              <MailIcon className={styles.icon} />
               {content.email}
             </a>
             <a href={content.linkedin.href} className={styles.contact} target="_blank" rel="noopener noreferrer">

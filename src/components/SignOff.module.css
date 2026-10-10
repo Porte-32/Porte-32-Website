@@ -1,0 +1,34 @@
+.bar {
+  width: 100%;
+  max-width: 1320px;
+  margin: var(--space-10) auto 0;
+  padding: var(--space-5) 0 var(--space-6);
+  border-top: var(--hairline) solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-7);
+  flex-wrap: wrap;
+}
+
+.home {
+  display: block;
+  line-height: 0;
+}
+
+.logo {
+  display: block;
+  height: 20px;
+  width: auto;
+}
+
+.copyright {
+  font: 400 var(--text-small) / 1.4 var(--font-body);
+  color: var(--fg-3);
+}
+
+@media (max-width: 640px) {
+  .bar {
+    margin-top: var(--space-9);
+  }
+}

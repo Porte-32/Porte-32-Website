@@ -4,7 +4,7 @@
  */
 export const contact = {
   heading: 'Which door will you open next?',
-  cta: { label: 'Upcoming events', href: '#events' },
+  cta: { label: 'Upcoming events', href: '/events' },
 
   email: 'events@porte32.com',
   linkedin: { label: 'LinkedIn', href: 'https://www.linkedin.com/company/porte-32' },

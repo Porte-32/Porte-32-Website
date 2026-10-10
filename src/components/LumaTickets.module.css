@@ -1,0 +1,45 @@
+/* A 1.5px ink frame, the logo's weight. */
+.tickets {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: var(--rule) solid var(--line-strong);
+  background: var(--bg);
+}
+
+.title {
+  margin: 0;
+  font: 500 var(--text-label) / 1 var(--font-body);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+.seats {
+  margin: var(--space-2) 0 0;
+  font: 500 var(--text-h3) / 1.1 var(--font-display);
+  font-variation-settings: 'opsz' 11;
+}
+
+/* Where Luma's widget sits until the event is on Luma. */
+.pending {
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-4);
+  border-top: var(--hairline) solid var(--line);
+  font: 400 var(--text-small) / 1.5 var(--font-body);
+  color: var(--fg-2);
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 450px;
+  margin-top: var(--space-4);
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .tickets {
+    padding: var(--space-5);
+  }
+}

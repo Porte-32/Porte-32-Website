@@ -1,0 +1,46 @@
+/* The events pages: paper, the same side padding and measure as the home page, room under the floating nav. */
+.page {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(20px, 5vw, 96px);
+  background: var(--bg);
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-top: clamp(140px, 22vh, 220px);
+}
+
+/* The list page: the title, left, then the events. */
+.heading {
+  margin: 0 0 var(--space-9);
+  font: 500 var(--text-h1) / var(--leading-display) var(--font-display);
+  font-variation-settings: 'opsz' 11;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+}
+
+/* The events, each between hairlines (EventLine draws the top one), the last closed off underneath. */
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: var(--hairline) solid var(--line);
+}
+
+/* Phones: less empty space under the nav. */
+@media (max-width: 640px) {
+  .main {
+    padding-top: var(--space-10);
+  }
+
+  .heading {
+    margin-bottom: var(--space-7);
+    font-size: var(--text-h2);
+  }
+}
