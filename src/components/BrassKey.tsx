@@ -8,6 +8,8 @@ import styles from './BrassKey.module.css';
 // this far before the end of the page (both in screen heights).
 const LEAVING = 0.6;
 const LANDING = 0.9;
+// Once landed it stays anchored in its end spot until you scroll back up this far from the bottom (in screen heights).
+const ANCHOR = 0.25;
 // While it falls it is a faint watermark, a little larger; at either end it is solid at its resting size.
 const WATERMARK = { ink: 0.12, scale: 1.3 };
 // Whole turns it tumbles through on the way down, on top of turning from its start pose to its end pose.
@@ -89,11 +91,19 @@ export function BrassKey() {
       const vh = viewportHeight();
       const max = Math.max(1, root.scrollHeight - vh);
 
+      // Landed, it stays anchored in its end spot (moving with the page) through small scrolls near the bottom.
+      // Scrolled back past that, the drift picks up from the end spot, so it lifts out without a jump.
+      const fromEnd = max - window.scrollY;
+      const anchored = !reduce && root.dataset.key === 'end' && fromEnd <= vh * ANCHOR;
+
       // The drift follows the scroll well behind, so it floats rather than moves with the page.
       const target = clamp(window.scrollY / max);
-      cur += (target - cur) * 0.05;
-      if (Math.abs(target - cur) < 0.0005) cur = target;
-      else if (!reduce) raf = requestAnimationFrame(tick);
+      if (anchored) cur = 1;
+      else {
+        cur += (target - cur) * 0.05;
+        if (Math.abs(target - cur) < 0.0005) cur = target;
+        else if (!reduce) raf = requestAnimationFrame(tick);
+      }
       const p = cur;
 
       const from = start.getBoundingClientRect();
@@ -129,11 +139,8 @@ export function BrassKey() {
       // Solid only near either spot: it fades to a watermark over the first half of leaving, back over the last half of landing.
       el.style.setProperty('--ink', lerp(WATERMARK.ink, 1, ease(clamp(settled * 2 - 1))).toFixed(3));
 
-      // At the very top or bottom, hand over to the key resting in the page. Once landed it stays handed over within
-      // a few pixels of the bottom (where the falling key would sit in the same place anyway), so small scroll
-      // wobbles, like the bounce at the end of the page, don't make it flicker.
-      const fromEnd = max - window.scrollY;
-      const atEnd = we > 0.9995 && (fromEnd <= 0.5 || (root.dataset.key === 'end' && fromEnd <= 4));
+      // At the very top or bottom, hand over to the key resting in the page (and keep it there while anchored).
+      const atEnd = anchored || (we > 0.9995 && fromEnd <= 0.5);
       const state = reduce || atEnd ? 'end' : window.scrollY <= 0.5 ? 'start' : '';
       if (root.dataset.key !== state) root.dataset.key = state;
       el.style.visibility = state ? 'hidden' : 'visible';
